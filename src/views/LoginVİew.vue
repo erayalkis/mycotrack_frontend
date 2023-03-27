@@ -1,5 +1,5 @@
 <template>
-  <main class="w-screen h-screen">
+  <main class="w-100">
     <LoginMain />
   </main>
 </template>
