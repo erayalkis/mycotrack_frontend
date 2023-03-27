@@ -1,4 +1,4 @@
-import { ref, computed, type Ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 
 type User = {
@@ -13,9 +13,11 @@ export const useUserStore = defineStore('user', () => {
     email: null
   })
 
-  const login = () => {}
+  const singin = () => {}
 
   const signup = () => {}
+
+  const signout = () => {}
 
   return { isLoggedIn, data }
 })

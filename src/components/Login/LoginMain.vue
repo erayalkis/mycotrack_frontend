@@ -5,7 +5,7 @@
       <label>Email</label>
       <input
         placeholder="Email"
-        class="border border-gray-300 p-1 rounded-md transition duration-300 ease-out hover:bg-gray-100 outline-none indent-1 mb-1"
+        class="border border-gray-300 p-1 rounded-md transition duration-300 ease-out hover:bg-gray-100 outline-none indent-1 mb-2"
       />
       <label>Password</label>
       <input
