@@ -1,5 +1,7 @@
 <template>
-  <SignupMain />
+  <div class="h-full flex">
+    <SignupMain />
+  </div>
 </template>
 
 <script setup lang="ts">

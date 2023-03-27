@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <CategoriesMain />
-  </main>
+  <CategoriesMain />
 </template>
 <script setup lang="ts">
 import CategoriesMain from '@/components/Categories/CategoriesMain.vue'
