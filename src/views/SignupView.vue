@@ -1,7 +1,5 @@
 <template>
-  <main class="w-100">
-    <SignupMain />
-  </main>
+  <SignupMain />
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between bg-gray-200">
+  <nav class="flex justify-between bg-gray-200">
     <RouterLink to="/">
       <h1 class="text-3xl p-2">MycoTrack</h1>
     </RouterLink>
@@ -11,5 +11,5 @@
         <h1 class="cursor-pointer">Signup</h1>
       </RouterLink>
     </div>
-  </div>
+  </nav>
 </template>
