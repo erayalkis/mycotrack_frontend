@@ -9,6 +9,7 @@ type User = {
 
 export const useUserStore = defineStore('user', () => {
   const isLoggedIn: Ref<boolean> = ref(false)
+  const token: Ref<String> = ref('')
   const data: Ref<User> = ref({
     username: null,
     email: null
@@ -30,10 +31,15 @@ export const useUserStore = defineStore('user', () => {
       body: JSON.stringify(data)
     })
 
-    const token = res.headers.get('authorization')
+    if (res.status !== 200) {
+      console.error('Error while logging in!')
+      console.log(res)
+    }
+
+    const resToken = res.headers.get('authorization')
     const json = await res.json()
 
-    json['token'] = token
+    if (resToken) token.value = resToken
     return json
   }
 

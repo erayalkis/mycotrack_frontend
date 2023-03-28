@@ -1,7 +1,7 @@
 <template>
   <div class="p-2 w-64 mx-auto my-auto">
     <h1 class="text-5xl mb-10 text-center">Myco<span class="text-blue-500">Track</span></h1>
-    <h1 class="text-2xl mb-2">Signup</h1>
+    <h1 class="text-2xl mb-2">Sign Up</h1>
     <div class="flex flex-col">
       <label>Username</label>
       <input
