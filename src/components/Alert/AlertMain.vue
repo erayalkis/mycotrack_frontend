@@ -1,8 +1,8 @@
 <template>
-  <div class="w-36 absolute bg-red-300 rounded-md border border-gray-100 bottom-0 right-36">
+  <div class="absolute rounded-md border border-gray-100 left-0 right-0 mx-auto bottom-10 w-max">
     <div class="flex justify-between">
-      <img :src="checkCircle" v-if="type === 'success'" />
-      <img :src="exclamationCirlce" v-if="type === 'warn'" />
+      <img :src="checkCircle" class="text-green-600" v-if="type === 'success'" />
+      <img :src="exclamationCirlce" class="text-yellow-600" v-if="type === 'warn'" />
       <img :src="infoCircle" v-if="type === 'info'" />
       <img :src="exclamationTriangle" v-if="type === 'error'" />
       <div>{{ message }}</div>
