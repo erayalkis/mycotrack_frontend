@@ -1,5 +1,6 @@
 import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
+import { serverConfig } from '@/config/serverConfig'
 
 type User = {
   username: String | null
@@ -13,11 +14,33 @@ export const useUserStore = defineStore('user', () => {
     email: null
   })
 
-  const singin = () => {}
+  const signIn = async (email: String, password: String) => {
+    console.log('hi')
+    console.log(email, password)
 
-  const signup = () => {}
+    const data = {
+      user: {
+        email,
+        password
+      }
+    }
 
-  const signout = () => {}
+    const res = await fetch(`${serverConfig.serverUrl}/users/sign_in`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
 
-  return { isLoggedIn, data }
+    const json = await res.json()
+
+    return json
+  }
+
+  const signUp = () => {}
+
+  const signOut = () => {}
+
+  return { isLoggedIn, data, signUp, signIn, signOut }
 })
