@@ -20,11 +20,12 @@
       />
       <!-- The disabled attribute below throws a fuss when we don't pass it pure boolean values for some reason? -->
       <button
-        class="border border-gray-300 p-1 mt-3 rounded-md transition duration-300 ease-out hover:bg-gray-200 disabled:bg-gray-200"
+        class="border flex justify-center gap-2 align-center border-gray-300 p-1 mt-3 rounded-md transition duration-300 ease-out hover:bg-gray-200 disabled:bg-gray-200"
         type="submit"
         :disabled="isLogginIn ? true : false"
       >
         Login
+        <SpinnerSvg v-if="isLogginIn" />
       </button>
     </form>
   </div>

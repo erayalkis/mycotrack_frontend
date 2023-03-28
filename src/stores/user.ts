@@ -15,9 +15,6 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const signIn = async (email: String, password: String) => {
-    console.log('hi')
-    console.log(email, password)
-
     const data = {
       user: {
         email,
@@ -33,8 +30,10 @@ export const useUserStore = defineStore('user', () => {
       body: JSON.stringify(data)
     })
 
+    const token = res.headers.get('authorization')
     const json = await res.json()
 
+    json['token'] = token
     return json
   }
 
