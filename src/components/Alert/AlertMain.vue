@@ -1,18 +1,24 @@
 <template>
   <div
+    v-if="messages.length"
     class="absolute rounded-md border border-gray-100 left-0 right-0 mx-auto bottom-10 w-80 px-7 py-5"
   >
     <div class="flex justify-between align-center">
-      <CheckCircle class="text-green-600 my-auto h-6 w-6" v-if="type === 'success'" />
-      <ExclamationCircle class="text-yellow-600 my-auto" v-if="type === 'warn'" />
-      <InfoCircle class="text-blue-600" v-if="type === 'info'" />
-      <ExclamationTriangle class="text-red-600" v-if="type === 'error'" />
-      <div>{{ message }}</div>
+      <CheckCircle class="text-green-600 my-auto h-6 w-6" v-if="current.type === 'success'" />
+      <ExclamationCircle class="text-yellow-600 my-auto" v-if="current.type === 'warn'" />
+      <InfoCircle class="text-blue-600" v-if="current.type === 'info'" />
+      <ExclamationTriangle class="text-red-600" v-if="current.type === 'error'" />
+      <div>{{ current.content }}</div>
       <div class="flex">
         <SkipForward
+          v-if="messages.length > 1"
           class="text-gray-500 cursor-pointer transition duration-300 hover:text-gray-800"
+          @click="skipMessage"
         />
-        <X class="text-gray-500 cursor-pointer transition duration-300 hover:text-gray-800" />
+        <X
+          class="text-gray-500 cursor-pointer transition duration-300 hover:text-gray-800"
+          @click="dismissAllMessages"
+        />
       </div>
     </div>
   </div>
@@ -25,17 +31,11 @@ import ExclamationTriangle from '@/assets/components/svg/ExclamationTriangleSvg.
 import SkipForward from '@/assets/components/svg/SkipForwardSvg.vue'
 import X from '@/assets/components/svg/xSvg.vue'
 import { useAlertStore } from '@/stores/alert'
+import { computed } from 'vue'
 
-const { messages } = useAlertStore()
+const { messages, popMessage, clearMessages } = useAlertStore()
+const current = computed(() => messages[0])
 
-defineProps({
-  message: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  }
-})
+const skipMessage = () => popMessage()
+const dismissAllMessages = () => clearMessages()
 </script>

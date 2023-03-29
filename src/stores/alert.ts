@@ -9,5 +9,9 @@ type Message = {
 export const useAlertStore = defineStore('alert', () => {
   const messages: Ref<Message[]> = ref([])
 
-  return { messages }
+  const addMessage = (msg: Message) => messages.value.push(msg)
+  const popMessage = () => messages.value.shift()
+  const clearMessages = () => (messages.value.length = 0)
+
+  return { messages, addMessage, popMessage, clearMessages }
 })
