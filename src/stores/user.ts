@@ -66,8 +66,11 @@ export const useUserStore = defineStore('user', () => {
       }
     }
 
-    const res = await fetch(`${serverConfig.serverUrl}/users/sign_up`, {
+    const res = await fetch(`${serverConfig.serverUrl}/users/`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(data)
     })
 

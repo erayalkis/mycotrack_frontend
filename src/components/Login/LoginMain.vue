@@ -24,10 +24,14 @@
         type="submit"
         :disabled="isLogginIn ? true : false"
       >
-        Login
+        Sign In
         <SpinnerSvg v-if="isLogginIn" />
       </button>
     </form>
+    <p class="text-sm opacity-50 mt-4 text-center">
+      Don't have an account?
+      <RouterLink to="/signup" class="underline">Sign Up</RouterLink>
+    </p>
   </div>
 </template>
 <script setup lang="ts">
@@ -42,6 +46,11 @@ const isLogginIn: Ref<Boolean> = ref(false)
 
 const login = async () => {
   if (isLogginIn.value) return
+  if (email.value.trim() === '' || password.value.trim() === '') {
+    email.value = ''
+    password.value = ''
+    return
+  }
 
   isLogginIn.value = true
   const ret = await signIn(email.value, password.value)
