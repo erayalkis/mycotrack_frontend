@@ -28,45 +28,17 @@
         <SpinnerSvg v-if="isLogginIn" />
       </button>
     </form>
-    <button
-      class="border flex justify-center gap-2 align-center border-gray-300 p-1 mt-3 rounded-md transition duration-300 ease-out hover:bg-gray-200 disabled:bg-gray-200"
-      @click="addDummyMessage"
-      :disabled="isLogginIn ? true : false"
-    >
-      Dummy message
-    </button>
   </div>
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 import { ref, type Ref } from 'vue'
 import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
-import { useAlertStore } from '@/stores/alert'
 const { signIn } = useUserStore()
 
-const { addMessage } = useAlertStore()
 const email: Ref<String> = ref('')
 const password: Ref<String> = ref('')
 const isLogginIn: Ref<Boolean> = ref(false)
-
-const addDummyMessage = () => {
-  addMessage({
-    content: 'Alert!',
-    type: 'warn'
-  })
-  addMessage({
-    content: 'Error!',
-    type: 'error'
-  })
-  addMessage({
-    content: 'Info!',
-    type: 'info'
-  })
-  addMessage({
-    content: 'Success!',
-    type: 'success'
-  })
-}
 
 const login = async () => {
   if (isLogginIn.value) return
