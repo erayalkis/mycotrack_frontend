@@ -6,6 +6,8 @@
       <InfoCircle class="text-blue-600" v-if="type === 'info'" />
       <ExclamationTriangle class="text-red-600" v-if="type === 'error'" />
       <div>{{ message }}</div>
+      <img :src="SkipForward" />
+      <img :src="X" />
     </div>
   </div>
 </template>
@@ -14,6 +16,8 @@ import ExclamationCircle from '@/assets/components/svg/ExclamationCircleSvg.vue'
 import CheckCircle from '@/assets/components/svg/CheckCircleSvg.vue'
 import InfoCircle from '@/assets/components/svg/InfoCircleSvg.vue'
 import ExclamationTriangle from '@/assets/components/svg/ExclamationTriangleSvg.vue'
+import SkipForward from '@/assets/svg/skip-forward.svg'
+import X from '@/assets/svg/x.svg'
 
 defineProps({
   message: {
