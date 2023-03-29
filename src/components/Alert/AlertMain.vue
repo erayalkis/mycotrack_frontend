@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="messages.length"
-    class="absolute rounded-md border border-gray-100 left-0 right-0 mx-auto bottom-10 w-80 px-7 py-5"
+    class="absolute rounded-md border border-gray-200 left-0 right-0 mx-auto bottom-10 w-80 px-7 py-5 shadow-md animate-bounce"
   >
     <div class="flex justify-between align-center">
       <CheckCircle class="text-green-600 my-auto h-6 w-6" v-if="current.type === 'success'" />
-      <ExclamationCircle class="text-yellow-600 my-auto" v-if="current.type === 'warn'" />
-      <InfoCircle class="text-blue-600" v-if="current.type === 'info'" />
-      <ExclamationTriangle class="text-red-600" v-if="current.type === 'error'" />
+      <ExclamationCircle class="text-yellow-600 my-auto h-6 w-6" v-if="current.type === 'warn'" />
+      <InfoCircle class="text-blue-600 h-6 w-6" v-if="current.type === 'info'" />
+      <ExclamationTriangle class="text-red-600 h-6 w-6" v-if="current.type === 'error'" />
       <div>{{ current.content }}</div>
       <div class="flex">
         <SkipForward
@@ -39,3 +39,4 @@ const current = computed(() => messages[0])
 const skipMessage = () => popMessage()
 const dismissAllMessages = () => clearMessages()
 </script>
+<style scoped></style>
