@@ -1,13 +1,19 @@
 <template>
   <div
     v-if="messages.length"
-    class="notification absolute rounded-md border border-gray-200 left-0 right-0 mx-auto w-80 px-7 py-5 shadow-md"
+    class="notification absolute rounded-md border border-gray-200 bg-white left-0 right-0 mx-auto w-[21rem] px-7 py-5 shadow-md"
   >
     <div class="flex justify-between align-center">
-      <CheckCircle class="text-green-600 my-auto h-6 w-6" v-if="current.type === 'success'" />
-      <ExclamationCircle class="text-yellow-600 my-auto h-6 w-6" v-if="current.type === 'warn'" />
-      <InfoCircle class="text-blue-600 h-6 w-6" v-if="current.type === 'info'" />
-      <ExclamationTriangle class="text-red-600 h-6 w-6" v-if="current.type === 'error'" />
+      <CheckCircle
+        class="text-green-600 my-auto h-6 w-6 shrink-0"
+        v-if="current.type === 'success'"
+      />
+      <ExclamationCircle
+        class="text-yellow-600 my-auto h-6 w-6 shrink-0"
+        v-if="current.type === 'warn'"
+      />
+      <InfoCircle class="text-blue-600 h-6 w-6 shrink-0" v-if="current.type === 'info'" />
+      <ExclamationTriangle class="text-red-600 h-6 w-6 shrink-0" v-if="current.type === 'error'" />
       <div>{{ current.content }}</div>
       <div class="flex">
         <SkipForward
