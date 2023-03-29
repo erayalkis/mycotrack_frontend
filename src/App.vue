@@ -3,7 +3,7 @@
   <main class="w-full h-full">
     <RouterView />
   </main>
-  <AlertMain message="Debug Message." type="warn" />
+  <AlertMain message="Debug Message." type="success" />
 </template>
 <script setup lang="ts">
 import AlertMain from './components/Alert/AlertMain.vue'

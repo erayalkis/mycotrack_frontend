@@ -1,19 +1,19 @@
 <template>
-  <div class="absolute rounded-md border border-gray-100 left-0 right-0 mx-auto bottom-10 w-max">
-    <div class="flex justify-between">
-      <img :src="checkCircle" class="text-green-600" v-if="type === 'success'" />
-      <img :src="exclamationCirlce" class="text-yellow-600" v-if="type === 'warn'" />
-      <img :src="infoCircle" v-if="type === 'info'" />
-      <img :src="exclamationTriangle" v-if="type === 'error'" />
+  <div class="absolute rounded-md border border-gray-100 left-0 right-0 mx-auto bottom-10 w-48">
+    <div class="flex justify-around align-center">
+      <CheckCircle class="text-green-600 my-auto" v-if="type === 'success'" />
+      <ExclamationCircle class="text-yellow-600 my-auto" v-if="type === 'warn'" />
+      <InfoCircle class="text-blue-600" v-if="type === 'info'" />
+      <ExclamationTriangle class="text-red-600" v-if="type === 'error'" />
       <div>{{ message }}</div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import checkCircle from '@/assets/svg/check-circle.svg'
-import exclamationCirlce from '@/assets/svg/exclamation-circle.svg'
-import infoCircle from '@/assets/svg/info-circle.svg'
-import exclamationTriangle from '@/assets/svg/exclamation-triangle.svg'
+import ExclamationCircle from '@/assets/components/svg/ExclamationCircleSvg.vue'
+import CheckCircle from '@/assets/components/svg/CheckCircleSvg.vue'
+import InfoCircle from '@/assets/components/svg/InfoCircleSvg.vue'
+import ExclamationTriangle from '@/assets/components/svg/ExclamationTriangleSvg.vue'
 
 defineProps({
   message: {
