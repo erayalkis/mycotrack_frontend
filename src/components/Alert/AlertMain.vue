@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="messages.length"
-    class="absolute rounded-md border border-gray-200 left-0 right-0 mx-auto bottom-10 w-80 px-7 py-5 shadow-md animate-bounce"
+    class="notification absolute rounded-md border border-gray-200 left-0 right-0 mx-auto w-80 px-7 py-5 shadow-md"
   >
     <div class="flex justify-between align-center">
       <CheckCircle class="text-green-600 my-auto h-6 w-6" v-if="current.type === 'success'" />
@@ -39,4 +39,20 @@ const current = computed(() => messages[0])
 const skipMessage = () => popMessage()
 const dismissAllMessages = () => clearMessages()
 </script>
-<style scoped></style>
+<style scoped>
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    bottom: 80px;
+  }
+
+  to {
+    opacity: 100;
+    bottom: 50px;
+  }
+}
+.notification {
+  transition: bottom, 300ms, ease-out;
+  animation: fade-in 300ms forwards;
+}
+</style>
