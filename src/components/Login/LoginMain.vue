@@ -36,10 +36,12 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 import { ref, type Ref } from 'vue'
 import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 const { signIn } = useUserStore()
 
+const { push } = useRouter()
 const email: Ref<String> = ref('')
 const password: Ref<String> = ref('')
 const isLogginIn: Ref<Boolean> = ref(false)
@@ -56,5 +58,6 @@ const login = async () => {
   const ret = await signIn(email.value, password.value)
   console.log(ret)
   isLogginIn.value = false
+  push('/')
 }
 </script>

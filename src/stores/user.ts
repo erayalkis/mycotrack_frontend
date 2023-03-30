@@ -114,7 +114,18 @@ export const useUserStore = defineStore('user', () => {
     })
 
     const json = await res.json()
+
+    if (res.status !== 200) {
+      console.error('Error while signing out!')
+      console.log(res)
+      addMessage({ content: json.error, type: 'error' })
+      return json
+    }
+
     console.log(json)
+    addMessage({ content: json.message, type: 'success' })
+    token.value = ''
+    isLoggedIn.value = false
     return json
   }
 
@@ -133,6 +144,13 @@ export const useUserStore = defineStore('user', () => {
     })
 
     const json = await res.json()
+
+    if (res.status !== 200) {
+      console.error('Error while fetching user data!')
+      console.log(res)
+      addMessage({ content: json.error, type: 'error' })
+      return json
+    }
 
     data.value = json
 

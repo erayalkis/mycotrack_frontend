@@ -5,7 +5,7 @@
     </RouterLink>
     <template v-if="isLoggedIn">
       <div class="text-2xl my-auto mr-2">
-        <h1 @click="signOut">Sign Out</h1>
+        <h1 @click="signOut" class="cursor-pointer">Sign Out</h1>
       </div>
     </template>
     <template v-else>
@@ -14,7 +14,7 @@
           <h1>Sign in</h1>
         </RouterLink>
         <RouterLink to="/signup">
-          <h1 class="cursor-pointer">Sign up</h1>
+          <h1>Sign up</h1>
         </RouterLink>
       </div>
     </template>
@@ -23,10 +23,14 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+
+const { push } = useRouter()
 const userStore = useUserStore()
 const { isLoggedIn } = storeToRefs(userStore)
 
 const signOut = () => {
-  console.log('hi')
+  userStore.signOut()
+  push('/login')
 }
 </script>
