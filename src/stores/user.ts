@@ -4,18 +4,22 @@ import { serverConfig } from '@/config/serverConfig'
 import { useAlertStore } from './alert'
 
 type User = {
-  username: String | null
-  email: String | null
+  username: string | null
+  email: string | null
+  created_at: string | null
+  updated_at: string | null
 }
 
 export const useUserStore = defineStore('user', () => {
   const { addMessage } = useAlertStore()
 
   const isLoggedIn: Ref<boolean> = ref(false)
-  const token: Ref<String> = ref('')
+  const token: Ref<string> = ref('')
   const data: Ref<User> = ref({
     username: null,
-    email: null
+    email: null,
+    created_at: null,
+    updated_at: null
   })
 
   const signIn = async (email: String, password: String) => {
@@ -47,7 +51,9 @@ export const useUserStore = defineStore('user', () => {
     const resToken = res.headers.get('authorization')
     if (resToken) token.value = resToken
 
+    await fetchAndSetUserData()
     addMessage({ content: json.message, type: 'success' })
+    isLoggedIn.value = true
     return json
   }
 
@@ -87,11 +93,52 @@ export const useUserStore = defineStore('user', () => {
     const resToken = res.headers.get('authorization')
     if (resToken) token.value = resToken
 
+    await fetchAndSetUserData()
     addMessage({ content: json.message, type: 'success' })
+    isLoggedIn.value = true
     return json
   }
 
-  const signOut = () => {}
+  const signOut = async () => {
+    if (!token.value) {
+      console.error("Can't sign out without a token!")
+      return
+    }
+
+    const res = await fetch(`${serverConfig.serverUrl}/users/sign_out`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token.value
+      }
+    })
+
+    const json = await res.json()
+    console.log(json)
+    return json
+  }
+
+  const fetchAndSetUserData = async () => {
+    if (!token.value) {
+      console.error("Can't fetch user data without a token!")
+      return
+    }
+
+    const res = await fetch(`${serverConfig.serverUrl}/current_user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token.value
+      }
+    })
+
+    const json = await res.json()
+
+    data.value = json
+
+    console.log(data.value)
+    return json
+  }
 
   return { isLoggedIn, data, signUp, signIn, signOut }
 })
