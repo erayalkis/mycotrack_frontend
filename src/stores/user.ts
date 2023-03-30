@@ -22,8 +22,9 @@ export const useUserStore = defineStore('user', () => {
     updated_at: null
   })
 
-  const setToken = (token: string) => {
-    localStorage.setItem('mycotrack-sessiontoken', token)
+  const setToken = (targetToken: string) => {
+    localStorage.setItem('mycotrack-sessiontoken', targetToken)
+    token.value = targetToken
     isLoggedIn.value = true
   }
 
