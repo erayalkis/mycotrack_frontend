@@ -23,11 +23,11 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const setToken = (token: string) => {
-    localStorage.setItem(`mycotrack-sessiontoken`, token)
+    localStorage.setItem('mycotrack-sessiontoken', token)
     isLoggedIn.value = true
   }
 
-  const loadToken = () => {
+  const loadToken = async () => {
     const localToken = localStorage.getItem('mycotrack-sessiontoken')
     if (localToken) {
       token.value = localToken
@@ -37,6 +37,7 @@ export const useUserStore = defineStore('user', () => {
 
   const removeToken = () => {
     localStorage.removeItem(`mycotrack-sessiontoken`)
+    token.value = ''
     isLoggedIn.value = false
   }
 
@@ -68,9 +69,10 @@ export const useUserStore = defineStore('user', () => {
 
     const resToken = res.headers.get('authorization')
 
+    if (resToken) setToken(resToken)
+    console.log(resToken)
     await fetchAndSetUserData()
     addMessage({ content: json.message, type: 'success' })
-    if (resToken) setToken(resToken)
     return json
   }
 
@@ -109,9 +111,10 @@ export const useUserStore = defineStore('user', () => {
 
     const resToken = res.headers.get('authorization')
 
+    console.log(resToken)
+    if (resToken) setToken(resToken)
     await fetchAndSetUserData()
     addMessage({ content: json.message, type: 'success' })
-    if (resToken) setToken(resToken)
     return json
   }
 
@@ -173,5 +176,5 @@ export const useUserStore = defineStore('user', () => {
     return json
   }
 
-  return { isLoggedIn, data, signUp, signIn, signOut }
+  return { isLoggedIn, data, signUp, signIn, signOut, loadToken, token }
 })
