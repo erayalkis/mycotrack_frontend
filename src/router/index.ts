@@ -23,12 +23,28 @@ const router = createRouter({
     {
       path: '/login',
       name: 'Login',
-      component: LoginVİewVue
+      component: LoginVİewVue,
+      beforeEnter: (from, to, next) => {
+        const { isLoggedIn } = useUserStore()
+        if (isLoggedIn) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/signup',
       name: 'Signup',
-      component: SignupViewVue
+      component: SignupViewVue,
+      beforeEnter: (from, to, next) => {
+        const { isLoggedIn } = useUserStore()
+        if (isLoggedIn) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     }
   ]
 })
