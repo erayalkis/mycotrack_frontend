@@ -4,7 +4,8 @@
       <h1 class="text-3xl p-2">Myco<span class="text-blue-500">Track</span></h1>
     </RouterLink>
     <template v-if="isLoggedIn">
-      <div class="text-2xl my-auto mr-2">
+      <div class="text-2xl my-auto mr-2 flex gap-5 select-none flex-wrap">
+        <h1>{{ data.username }}</h1>
         <h1 @click="signOut" class="cursor-pointer">Sign Out</h1>
       </div>
     </template>
@@ -27,10 +28,10 @@ import { useRouter } from 'vue-router'
 
 const { push } = useRouter()
 const userStore = useUserStore()
-const { isLoggedIn } = storeToRefs(userStore)
+const { isLoggedIn, data } = storeToRefs(userStore)
 
-const signOut = () => {
-  userStore.signOut()
+const signOut = async () => {
+  await userStore.signOut()
   push('/login')
 }
 </script>
