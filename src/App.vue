@@ -3,7 +3,7 @@
   <main class="w-full h-full">
     <RouterView />
   </main>
-  <AlertMain message="Debug Message." type="success" />
+  <AlertMain />
 </template>
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
