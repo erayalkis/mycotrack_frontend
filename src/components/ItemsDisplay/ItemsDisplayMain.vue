@@ -24,6 +24,7 @@
                   <td class="flex">
                     <ZoomInSvg
                       class="w-5 h-5 ml-auto text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
+                      @click="formStore.toggleView"
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
@@ -108,6 +109,7 @@
 import { useCultureStore } from '@/stores/cultures'
 import { useSpawnStore } from '@/stores/spawns'
 import { useBlockStore } from '@/stores/blocks'
+import { useFormStore } from '@/stores/form'
 import { onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 import TrashSvg from '@/assets/components/svg/TrashSvg.vue'
@@ -119,6 +121,7 @@ import MushroomSvg from '@/assets/components/svg/MushroomSvg.vue'
 const cultureStore = useCultureStore()
 const spawnStore = useSpawnStore()
 const blockStore = useBlockStore()
+const formStore = useFormStore()
 
 const { cultures } = storeToRefs(cultureStore)
 const { spawns } = storeToRefs(spawnStore)
