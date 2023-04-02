@@ -30,4 +30,10 @@ const { viewForm } = storeToRefs(formStore)
 .myc-form.show {
   left: 0;
 }
+
+@media screen and (min-width: 1000px) {
+  .myc-form.show {
+    left: 80vw;
+  }
+}
 </style>
