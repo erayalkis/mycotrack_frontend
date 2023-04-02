@@ -11,8 +11,9 @@ import AlertMain from './components/Alert/AlertMain.vue'
 import NavbarMain from './components/Navbar/NavbarMain.vue'
 import { useUserStore } from './stores/user'
 
-const { loadToken } = useUserStore()
+const { loadToken, fetchAndSetUserData } = useUserStore()
 onBeforeMount(async () => {
   await loadToken()
+  await fetchAndSetUserData()
 })
 </script>

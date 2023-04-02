@@ -1,6 +1,8 @@
 <template>
-  <CategoriesMain />
+  <ItemsDisplayMain />
+  <ItemsStatisticsMain />
 </template>
 <script setup lang="ts">
-import CategoriesMain from '@/components/Categories/CategoriesMain.vue'
+import ItemsDisplayMain from '@/components/ItemsDisplay/ItemsDisplayMain.vue'
+import ItemsStatisticsMain from '@/components/ItemsStatistics/ItemsStatisticsMain.vue'
 </script>

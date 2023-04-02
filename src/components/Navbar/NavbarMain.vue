@@ -1,10 +1,10 @@
 <template>
-  <nav class="flex justify-between bg-gray-200">
+  <nav class="sticky top-0 flex justify-between bg-gray-200">
     <RouterLink to="/">
       <h1 class="text-3xl p-2">Myco<span class="text-blue-500">Track</span></h1>
     </RouterLink>
     <template v-if="isLoggedIn">
-      <div class="text-2xl my-auto mr-2 flex gap-5 select-none flex-wrap">
+      <div class="text-lg my-auto mr-2 flex gap-5 select-none flex-wrap md:text-xl">
         <h1>{{ data.username }}</h1>
         <h1 @click="signOut" class="cursor-pointer">Sign Out</h1>
       </div>
