@@ -3,7 +3,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
 
-type Spawn = {
+export type Spawn = {
   id: number
   substrate: string | null
   culture_id: number | null

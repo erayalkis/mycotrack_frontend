@@ -3,7 +3,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
 
-type Culture = {
+export type Culture = {
   id: number
   genus: string
   species: string | null
