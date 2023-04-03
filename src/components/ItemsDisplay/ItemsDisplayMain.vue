@@ -24,7 +24,7 @@
                   <td class="flex">
                     <ZoomInSvg
                       class="w-5 h-5 ml-auto text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
-                      @click="formStore.toggleView"
+                      @click="openCultureForm(culture)"
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
@@ -106,7 +106,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useCultureStore } from '@/stores/cultures'
+import { useCultureStore, type Culture } from '@/stores/cultures'
 import { useSpawnStore } from '@/stores/spawns'
 import { useBlockStore } from '@/stores/blocks'
 import { useFormStore } from '@/stores/form'
@@ -132,4 +132,17 @@ onBeforeMount(async () => {
   await spawnStore.fetchSpawns()
   await blockStore.fetchBlocks()
 })
+
+const openCultureForm = (culture: Culture) => {
+  if (formStore.cultureFormTarget && formStore.cultureFormTarget.id == culture.id) {
+    formStore.toggleView()
+    setTimeout(() => {
+      formStore.clearCultureTarget()
+    }, 300)
+    return
+  }
+
+  if (!formStore.viewForm) formStore.toggleView()
+  formStore.setCultureTarget(culture)
+}
 </script>
