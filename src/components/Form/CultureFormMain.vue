@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="formStore.cultureFormTarget">
+    <div v-if="formStore.cultureFormTarget.id">
       <h1>CLTR#{{ formStore.cultureFormTarget.id.toString().padStart(3, '0') }}</h1>
       <h1>{{ formStore.cultureFormTarget.genus + ' ' + formStore.cultureFormTarget.species }}</h1>
     </div>

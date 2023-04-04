@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="formStore.spawnFormTarget">
+    <div v-if="formStore.spawnFormTarget.id">
       <h1>SPWN#{{ formStore.spawnFormTarget.id.toString().padStart(3, '0') }}</h1>
       <h1>{{ formStore.spawnFormTarget.substrate }}</h1>
     </div>

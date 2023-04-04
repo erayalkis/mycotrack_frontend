@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="formStore.blockFormTarget">
+    <div v-if="formStore.blockFormTarget.id">
       <h1>BLCK#{{ formStore.blockFormTarget.id.toString().padStart(3, '0') }}</h1>
       <h1>{{ formStore.blockFormTarget.substrate }}</h1>
     </div>
