@@ -42,9 +42,26 @@ export const useFormStore = defineStore('form', () => {
   const blockFormTarget: Ref<Block> = ref(blockDefault)
 
   const toggleView = () => (viewForm.value = !viewForm.value)
-  const setCultureTarget = (target: Culture) => (cultureFormTarget.value = target)
-  const setSpawnTarget = (target: Spawn) => (spawnFormTarget.value = target)
-  const setBlockTarget = (target: Block) => (blockFormTarget.value = target)
+  const setCultureTarget = (target: Culture) => {
+    if (spawnFormTarget.value.id) clearSpawnTarget()
+    if (blockFormTarget.value.id) clearBlockTarget()
+
+    cultureFormTarget.value = target
+  }
+
+  const setSpawnTarget = (target: Spawn) => {
+    if (cultureFormTarget.value.id) clearCultureTarget()
+    if (blockFormTarget.value.id) clearBlockTarget()
+
+    spawnFormTarget.value = target
+  }
+
+  const setBlockTarget = (target: Block) => {
+    if (cultureFormTarget.value.id) clearCultureTarget()
+    if (spawnFormTarget.value.id) clearSpawnTarget()
+
+    blockFormTarget.value = target
+  }
 
   const clearCultureTarget = () => (cultureFormTarget.value = cultureDefault)
   const clearSpawnTarget = () => (spawnFormTarget.value = spawnDefault)

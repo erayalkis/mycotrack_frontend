@@ -58,6 +58,7 @@
                   <td class="flex">
                     <ZoomInSvg
                       class="w-5 h-5 ml-auto text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
+                      @click="openSpawnForm(spawn)"
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
@@ -91,6 +92,7 @@
                   <td class="flex">
                     <ZoomInSvg
                       class="w-5 h-5 ml-auto text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
+                      @click="openBlockForm(block)"
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
@@ -107,8 +109,8 @@
 </template>
 <script setup lang="ts">
 import { useCultureStore, type Culture } from '@/stores/cultures'
-import { useSpawnStore } from '@/stores/spawns'
-import { useBlockStore } from '@/stores/blocks'
+import { useSpawnStore, type Spawn } from '@/stores/spawns'
+import { useBlockStore, type Block } from '@/stores/blocks'
 import { useFormStore } from '@/stores/form'
 import { onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -144,5 +146,31 @@ const openCultureForm = (culture: Culture) => {
 
   if (!formStore.viewForm) formStore.toggleView()
   formStore.setCultureTarget(culture)
+}
+
+const openSpawnForm = (spawn: Spawn) => {
+  if (formStore.spawnFormTarget && formStore.spawnFormTarget.id == spawn.id) {
+    formStore.toggleView()
+    setTimeout(() => {
+      formStore.clearSpawnTarget()
+    }, 300)
+    return
+  }
+
+  if (!formStore.viewForm) formStore.toggleView()
+  formStore.setSpawnTarget(spawn)
+}
+
+const openBlockForm = (block: Block) => {
+  if (formStore.blockFormTarget && formStore.blockFormTarget.id == block.id) {
+    formStore.toggleView()
+    setTimeout(() => {
+      formStore.clearBlockTarget()
+    }, 300)
+    return
+  }
+
+  if (!formStore.viewForm) formStore.toggleView()
+  formStore.setBlockTarget(block)
 }
 </script>

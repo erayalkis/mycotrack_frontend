@@ -6,29 +6,16 @@
     @touchmove.prevent
     @scroll.prevent
   >
-    <div v-if="formStore.cultureFormTarget">
-      <h1>CLTR#{{ formStore.cultureFormTarget.id.toString().padStart(3, '0') }}</h1>
-      <h1>{{ formStore.cultureFormTarget.genus + ' ' + formStore.cultureFormTarget.species }}</h1>
-    </div>
-    <ArrowLeftSvg class="cursor-pointer" @click="closeForm" />
+    <CultureFormMain v-if="cultureFormTarget" />
   </div>
 </template>
 <script setup lang="ts">
 import { useFormStore } from '@/stores/form'
 import { storeToRefs } from 'pinia'
-import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
+import CultureFormMain from './CultureFormMain.vue'
 
 const formStore = useFormStore()
-const { viewForm } = storeToRefs(formStore)
-
-const closeForm = () => {
-  if (viewForm.value) {
-    formStore.toggleView()
-    setTimeout(() => {
-      formStore.clearCultureTarget()
-    }, 300)
-  }
-}
+const { viewForm, cultureFormTarget } = storeToRefs(formStore)
 </script>
 <style scoped>
 .myc-form {
