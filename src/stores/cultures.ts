@@ -9,6 +9,7 @@ export type Culture = {
   species: string | null
   source: string | null
   user_id: number
+  should_render: boolean
   created_at: string
   updated_at: string
 }

@@ -13,6 +13,7 @@ export const useFormStore = defineStore('form', () => {
     species: '',
     source: '',
     user_id: -1,
+    should_render: false,
     created_at: '',
     updated_at: ''
   }
@@ -22,6 +23,7 @@ export const useFormStore = defineStore('form', () => {
     substrate: '',
     culture_id: -1,
     user_id: -1,
+    should_render: false,
     created_at: '',
     updated_at: ''
   }
@@ -31,6 +33,7 @@ export const useFormStore = defineStore('form', () => {
     substrate: '',
     spawn_id: -1,
     user_id: -1,
+    should_render: false,
     created_at: '',
     updated_at: ''
   }
@@ -42,6 +45,7 @@ export const useFormStore = defineStore('form', () => {
   const blockFormTarget: Ref<Block> = ref(blockDefault)
 
   const toggleView = () => (viewForm.value = !viewForm.value)
+
   const setCultureTarget = (target: Culture | null) => {
     if (spawnFormTarget.value.id) clearSpawnTarget()
     if (blockFormTarget.value.id) clearBlockTarget()
@@ -51,6 +55,8 @@ export const useFormStore = defineStore('form', () => {
     } else {
       cultureFormTarget.value = cultureDefault
     }
+
+    cultureFormTarget.value.should_render = true
   }
 
   const setSpawnTarget = (target: Spawn | null) => {

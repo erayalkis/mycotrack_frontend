@@ -6,6 +6,7 @@
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <PetriDishSvg class="w-8 h-8 text-blue-500" />
           <h1 class="text-lg">Cultures</h1>
+          <PlusSvg class="w-7 h-7 text-blue-500 cursor-pointer" @click="openEmptyCultureForm" />
         </div>
         <div class="h-full">
           <table class="w-full text-sm text-left">
@@ -40,6 +41,7 @@
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <JarSvg class="w-8 h-8 text-blue-500" />
           <h1 class="text-lg">Spawns</h1>
+          <PlusSvg class="w-7 h-7 text-blue-500 cursor-pointer" @click="openEmptySpawnForm" />
         </div>
         <div class="h-full">
           <table class="w-full text-sm text-left">
@@ -74,6 +76,7 @@
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <MushroomSvg class="w-8 h-8 text-blue-500" />
           <h1 class="text-lg">Blocks</h1>
+          <PlusSvg class="w-7 h-7 text-blue-500 cursor-pointer" @click="openEmptyBlockForm" />
         </div>
         <div class="h-full">
           <table class="w-full text-sm text-left">
@@ -119,6 +122,7 @@ import ZoomInSvg from '@/assets/components/svg/ZoomInSvg.vue'
 import PetriDishSvg from '@/assets/components/svg/PetriDishSvg.vue'
 import JarSvg from '@/assets/components/svg/JarSvg.vue'
 import MushroomSvg from '@/assets/components/svg/MushroomSvg.vue'
+import PlusSvg from '@/assets/components/svg/PlusSvg.vue'
 
 const cultureStore = useCultureStore()
 const spawnStore = useSpawnStore()
@@ -148,6 +152,8 @@ const openCultureForm = (culture: Culture) => {
   formStore.setCultureTarget(culture)
 }
 
+const openEmptyCultureForm = () => {}
+
 const openSpawnForm = (spawn: Spawn) => {
   if (formStore.spawnFormTarget && formStore.spawnFormTarget.id == spawn.id) {
     formStore.toggleView()
@@ -161,6 +167,8 @@ const openSpawnForm = (spawn: Spawn) => {
   formStore.setSpawnTarget(spawn)
 }
 
+const openEmptySpawnForm = () => {}
+
 const openBlockForm = (block: Block) => {
   if (formStore.blockFormTarget && formStore.blockFormTarget.id == block.id) {
     formStore.toggleView()
@@ -173,4 +181,6 @@ const openBlockForm = (block: Block) => {
   if (!formStore.viewForm) formStore.toggleView()
   formStore.setBlockTarget(block)
 }
+
+const openEmptyBlockForm = () => {}
 </script>

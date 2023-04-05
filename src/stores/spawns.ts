@@ -8,6 +8,7 @@ export type Spawn = {
   substrate: string | null
   culture_id: number | null
   user_id: number
+  should_render: boolean
   created_at: string
   updated_at: string
 }

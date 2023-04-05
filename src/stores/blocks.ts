@@ -8,6 +8,7 @@ export type Block = {
   spawn_id: number | null
   substrate: string
   user_id: number
+  should_render: boolean
   created_at: string
   updated_at: string
 }

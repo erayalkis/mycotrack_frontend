@@ -4,6 +4,9 @@
       <h1>CLTR#{{ formStore.cultureFormTarget.id.toString().padStart(3, '0') }}</h1>
       <h1>{{ formStore.cultureFormTarget.genus + ' ' + formStore.cultureFormTarget.species }}</h1>
     </div>
+    <div v-else>
+      <h1>Add a culture</h1>
+    </div>
     <ArrowLeftSvg class="cursor-pointer" @click="closeForm" />
   </div>
 </template>
