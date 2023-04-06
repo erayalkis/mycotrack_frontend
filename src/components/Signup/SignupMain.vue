@@ -52,9 +52,11 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 import { ref, type Ref } from 'vue'
+import { useRouter } from 'vue-router'
 import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 const { signUp } = useUserStore()
 
+const { push } = useRouter()
 const username: Ref<String> = ref('')
 const email: Ref<String> = ref('')
 const password: Ref<String> = ref('')
@@ -80,5 +82,6 @@ const signup = async () => {
   const ret = await signUp(username.value, email.value, password.value, passwordConfirmation.value)
   console.log(ret)
   isSigningUp.value = false
+  push('/')
 }
 </script>
