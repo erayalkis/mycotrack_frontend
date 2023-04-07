@@ -154,7 +154,7 @@ const openCultureForm = (culture: Culture) => {
 
 const openEmptyCultureForm = () => {
   if (formStore.cultureFormTarget.id === -1) formStore.toggleView()
-  formStore.setSpawnTarget(null)
+  formStore.setCultureTarget(null)
 }
 
 const openSpawnForm = (spawn: Spawn) => {
@@ -170,7 +170,10 @@ const openSpawnForm = (spawn: Spawn) => {
   formStore.setSpawnTarget(spawn)
 }
 
-const openEmptySpawnForm = () => {}
+const openEmptySpawnForm = () => {
+  if (formStore.spawnFormTarget.id === -1) formStore.toggleView()
+  formStore.setSpawnTarget(null)
+}
 
 const openBlockForm = (block: Block) => {
   if (formStore.blockFormTarget && formStore.blockFormTarget.id == block.id) {
