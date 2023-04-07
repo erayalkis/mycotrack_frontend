@@ -6,12 +6,19 @@ import { useUserStore } from './user'
 export type Culture = {
   id: number
   genus: string
-  species: string | null
-  source: string | null
+  species: string
+  source: string
   user_id: number
   should_render: boolean
   created_at: string
   updated_at: string
+}
+
+export type CulturePayload = {
+  genus: string
+  species: string
+  source: string
+  user_id: number
 }
 
 export const useCultureStore = defineStore('culture', () => {
@@ -36,5 +43,27 @@ export const useCultureStore = defineStore('culture', () => {
     return json
   }
 
-  return { cultures, fetchCultures }
+  const addToCultures = (culture: Culture) => {
+    cultures.value.push(culture)
+  }
+
+  const postCulture = async (culture: CulturePayload) => {
+    const body = {
+      culture: culture
+    }
+
+    const res = await fetch(`${serverConfig.serverUrl}/cultures`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token.value
+      },
+      body: JSON.stringify(body)
+    })
+
+    const json = await res.json()
+    return json
+  }
+
+  return { cultures, addToCultures, fetchCultures, postCulture }
 })

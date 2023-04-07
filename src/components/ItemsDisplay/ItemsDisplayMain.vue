@@ -152,7 +152,10 @@ const openCultureForm = (culture: Culture) => {
   formStore.setCultureTarget(culture)
 }
 
-const openEmptyCultureForm = () => {}
+const openEmptyCultureForm = () => {
+  if (formStore.cultureFormTarget.id === -1) formStore.toggleView()
+  formStore.setSpawnTarget(null)
+}
 
 const openSpawnForm = (spawn: Spawn) => {
   if (formStore.spawnFormTarget && formStore.spawnFormTarget.id == spawn.id) {

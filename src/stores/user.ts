@@ -4,6 +4,7 @@ import { serverConfig } from '@/config/serverConfig'
 import { useAlertStore } from './alert'
 
 type User = {
+  id: number | null
   username: string | null
   email: string | null
   created_at: string | null
@@ -16,6 +17,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn: Ref<boolean> = ref(false)
   const token: Ref<string> = ref('')
   const data: Ref<User> = ref({
+    id: null,
     username: null,
     email: null,
     created_at: null,
