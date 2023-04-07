@@ -15,6 +15,7 @@ export type Culture = {
 }
 
 export type CulturePayload = {
+  id: number | null
   genus: string
   species: string
   source: string
@@ -65,5 +66,24 @@ export const useCultureStore = defineStore('culture', () => {
     return json
   }
 
-  return { cultures, addToCultures, fetchCultures, postCulture }
+  const patchCulture = async (culture: CulturePayload) => {
+    const body = {
+      culture: culture
+    }
+
+    const res = await fetch(`${serverConfig.serverUrl}/cultures/${culture.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token.value
+      },
+      body: JSON.stringify(body)
+    })
+
+    const json = await res.json()
+
+    return json
+  }
+
+  return { cultures, addToCultures, fetchCultures, postCulture, patchCulture }
 })

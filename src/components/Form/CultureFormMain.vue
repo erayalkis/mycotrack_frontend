@@ -9,12 +9,13 @@
       <h1>Add a culture</h1>
     </div>
 
-    <form @submit.prevent="createCulture">
+    <form @submit.prevent="handleCultureSubmit">
       <input type="text" placeholder="Genus" v-model="genus" />
       <input type="text" placeholder="Species" v-model="species" />
       <textarea placeholder="Source" v-model="source"></textarea>
       <br />
-      <button type="submit">Add culture</button>
+      <button v-if="cultureFormTarget.id == -1" type="submit">Add culture</button>
+      <button v-else type="submit">Edit culture</button>
     </form>
     <ArrowLeftSvg class="cursor-pointer" @click="closeForm" />
   </div>
@@ -29,7 +30,7 @@ import { ref, watch } from 'vue'
 
 const formStore = useFormStore()
 const userStore = useUserStore()
-const { postCulture, addToCultures } = useCultureStore()
+const { postCulture, addToCultures, patchCulture } = useCultureStore()
 const { viewForm, cultureFormTarget } = storeToRefs(formStore)
 const { data } = storeToRefs(userStore)
 
@@ -56,6 +57,7 @@ const createCulture = async () => {
   if (data.value.id === null) return
 
   const culture: CulturePayload = {
+    id: null,
     genus: genus.value,
     species: species.value,
     source: source.value,
@@ -64,6 +66,29 @@ const createCulture = async () => {
 
   const cultureRes = await postCulture(culture)
   addToCultures(cultureRes)
+}
+
+const updateCulture = async () => {
+  if (data.value.id === null) return
+
+  const culture: CulturePayload = {
+    id: cultureFormTarget.value.id,
+    genus: genus.value,
+    species: species.value,
+    source: source.value,
+    user_id: data.value.id
+  }
+
+  const cultureRes = await patchCulture(culture)
+  console.log(cultureRes)
+}
+
+const handleCultureSubmit = async () => {
+  if (cultureFormTarget.value.id === -1) {
+    createCulture()
+  } else {
+    updateCulture()
+  }
 }
 </script>
 -
