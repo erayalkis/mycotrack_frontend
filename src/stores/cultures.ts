@@ -48,6 +48,11 @@ export const useCultureStore = defineStore('culture', () => {
     cultures.value.push(culture)
   }
 
+  const updateCultureData = (culture_id: number, culture: Culture) => {
+    const indexOfTarget = cultures.value.findIndex((culture) => culture.id === culture_id)
+    cultures.value[indexOfTarget] = culture
+  }
+
   const postCulture = async (culture: CulturePayload) => {
     const body = {
       culture: culture
@@ -85,5 +90,5 @@ export const useCultureStore = defineStore('culture', () => {
     return json
   }
 
-  return { cultures, addToCultures, fetchCultures, postCulture, patchCulture }
+  return { cultures, addToCultures, fetchCultures, postCulture, patchCulture, updateCultureData }
 })

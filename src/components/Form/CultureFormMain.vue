@@ -30,7 +30,7 @@ import { ref, watch } from 'vue'
 
 const formStore = useFormStore()
 const userStore = useUserStore()
-const { postCulture, addToCultures, patchCulture } = useCultureStore()
+const { postCulture, addToCultures, patchCulture, updateCultureData } = useCultureStore()
 const { viewForm, cultureFormTarget } = storeToRefs(formStore)
 const { data } = storeToRefs(userStore)
 
@@ -81,6 +81,7 @@ const updateCulture = async () => {
 
   const cultureRes = await patchCulture(culture)
   console.log(cultureRes)
+  updateCultureData(cultureFormTarget.value.id, cultureRes)
 }
 
 const handleCultureSubmit = async () => {
