@@ -20,18 +20,21 @@ const { viewForm, cultureFormTarget } = storeToRefs(formStore)
 <style scoped>
 .myc-form {
   right: -100vw;
+  opacity: 100;
   transition-property: all;
   transition-duration: 300ms;
-  transition-timing-function: ease-out;
+  transition-timing-function: ease-in-out;
 }
 
 .myc-form.show {
   right: 0;
+  opacity: 100;
 }
 
 @media screen and (min-width: 1050px) {
   .myc-form.show {
     right: 0;
+    opacity: 100;
   }
 }
 </style>
