@@ -55,7 +55,7 @@
             <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
               <template v-for="spawn in spawns" :key="spawn.id">
                 <tr>
-                  <td>SPWN#{{ spawn.id.toString().padStart(3, '0') }}</td>
+                  <td>SPWN#{{ spawn.id }}</td>
                   <td>{{ spawn.substrate }}</td>
                   <td class="flex">
                     <ZoomInSvg

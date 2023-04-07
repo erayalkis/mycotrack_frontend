@@ -1,19 +1,76 @@
 <template>
   <div>
-    <div v-if="formStore.spawnFormTarget.id">
-      <h1>SPWN#{{ formStore.spawnFormTarget.id.toString().padStart(3, '0') }}</h1>
-      <h1>{{ formStore.spawnFormTarget.substrate }}</h1>
+    <ArrowLeftSvg class="w-8 h-8 m-2 cursor-pointer" @click="closeForm" />
+    <JarSvg class="w-10 h-10 text-blue-500 mx-auto" />
+    <div
+      v-if="spawnFormTarget.id !== -1"
+      class="flex justify-center gap-2 font-medium text-lg p-2 md:text-xl"
+    >
+      <h1>SPWN#{{ spawnFormTarget.id.toString().padStart(3, '0') }}</h1>
     </div>
-    <ArrowLeftSvg class="cursor-pointer" @click="closeForm" />
+    <div v-else>
+      <h1 class="font-medium text-lg md:text-xl text-center p-2">Add a spawn</h1>
+    </div>
+
+    <form @submit.prevent="handleSpawnSubmit" class="flex flex-col gap-2 px-2 py-1">
+      <select class="border border-gray-200 rounded-md outline-0 hover:0" v-model="cultureId">
+        <option disabled :value="-1">Select a culture</option>
+        <template v-for="culture in cultures" :key="culture.id">
+          <option :value="culture.id">{{ culture.genus + '' + culture.species }}</option>
+        </template>
+      </select>
+      <textarea
+        placeholder="Substrate"
+        class="rounded-md border border-gray-200 transition duration-300 ease-out outline-0 indent-1 hover:border-gray-300"
+        v-model="substrate"
+      ></textarea>
+      <br />
+      <button
+        v-if="spawnFormTarget.id == -1"
+        type="submit"
+        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+      >
+        Add spawn
+      </button>
+      <button
+        v-else
+        type="submit"
+        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+      >
+        Edit spawn
+      </button>
+    </form>
   </div>
 </template>
 <script setup lang="ts">
 import { useFormStore } from '@/stores/form'
+import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
+import JarSvg from '@/assets/components/svg/JarSvg.vue'
+import { ref, watch } from 'vue'
+import { useSpawnStore, type SpawnPayload } from '@/stores/spawns'
+import { useCultureStore } from '@/stores/cultures'
 
+const { postSpawn, addToSpawns, patchSpawn, updateSpawnData } = useSpawnStore()
+const { cultures } = useCultureStore()
 const formStore = useFormStore()
-const { viewForm } = storeToRefs(formStore)
+const { spawnFormTarget, viewForm } = storeToRefs(formStore)
+
+const userStore = useUserStore()
+const { data } = storeToRefs(userStore)
+
+const substrate = ref('')
+const cultureId = ref(-1)
+
+watch(spawnFormTarget, () => {
+  if (spawnFormTarget.value.substrate) {
+    substrate.value = spawnFormTarget.value.substrate
+  }
+  if (spawnFormTarget.value.culture_id) {
+    cultureId.value = spawnFormTarget.value.culture_id
+  }
+})
 
 const closeForm = () => {
   if (viewForm.value) {
@@ -22,6 +79,43 @@ const closeForm = () => {
       formStore.clearSpawnTarget()
     }, 300)
   }
+}
+
+const handleSpawnSubmit = async () => {
+  if (spawnFormTarget.value.id === -1) {
+    createSpawn()
+  } else {
+    updateSpawn()
+  }
+}
+
+const createSpawn = async () => {
+  if (data.value.id === null) return
+
+  const culture: SpawnPayload = {
+    id: null,
+    substrate: substrate.value,
+    culture_id: cultureId.value,
+    user_id: data.value.id
+  }
+
+  const cultureRes = await postSpawn(culture)
+  addToSpawns(cultureRes)
+}
+
+const updateSpawn = async () => {
+  if (data.value.id === null) return
+
+  const culture: SpawnPayload = {
+    id: spawnFormTarget.value.id,
+    substrate: substrate.value,
+    culture_id: cultureId.value,
+    user_id: data.value.id
+  }
+
+  const cultureRes = await patchSpawn(culture)
+  console.log(cultureRes)
+  updateSpawnData(spawnFormTarget.value.id, cultureRes)
 }
 </script>
 -

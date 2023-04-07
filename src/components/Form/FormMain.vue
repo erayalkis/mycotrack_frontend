@@ -6,16 +6,20 @@
     @touchmove.prevent
     @scroll.prevent
   >
-    <CultureFormMain v-if="cultureFormTarget" />
+    {{ cultureFormTarget.should_render }}
+    {{ spawnFormTarget.should_render }}
+    <CultureFormMain v-if="cultureFormTarget.should_render" />
+    <SpawnFormMain v-if="spawnFormTarget.should_render" />
   </div>
 </template>
 <script setup lang="ts">
 import { useFormStore } from '@/stores/form'
 import { storeToRefs } from 'pinia'
 import CultureFormMain from './CultureFormMain.vue'
+import SpawnFormMain from './SpawnFormMain.vue'
 
 const formStore = useFormStore()
-const { viewForm, cultureFormTarget } = storeToRefs(formStore)
+const { viewForm, cultureFormTarget, spawnFormTarget } = storeToRefs(formStore)
 </script>
 <style scoped>
 .myc-form {

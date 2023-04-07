@@ -7,7 +7,7 @@ import type { Block } from './blocks'
 export const useFormStore = defineStore('form', () => {
   const viewForm = ref(false)
 
-  const cultureDefault = {
+  const cultureDefault = () => ({
     id: -1,
     genus: '',
     species: '',
@@ -16,9 +16,9 @@ export const useFormStore = defineStore('form', () => {
     should_render: false,
     created_at: '',
     updated_at: ''
-  }
+  })
 
-  const spawnDefault = {
+  const spawnDefault = () => ({
     id: -1,
     substrate: '',
     culture_id: -1,
@@ -26,9 +26,9 @@ export const useFormStore = defineStore('form', () => {
     should_render: false,
     created_at: '',
     updated_at: ''
-  }
+  })
 
-  const blockDefault = {
+  const blockDefault = () => ({
     id: -1,
     substrate: '',
     spawn_id: -1,
@@ -36,38 +36,40 @@ export const useFormStore = defineStore('form', () => {
     should_render: false,
     created_at: '',
     updated_at: ''
-  }
+  })
 
-  const cultureFormTarget: Ref<Culture> = ref(cultureDefault)
+  const cultureFormTarget: Ref<Culture> = ref(cultureDefault())
 
-  const spawnFormTarget: Ref<Spawn> = ref(spawnDefault)
+  const spawnFormTarget: Ref<Spawn> = ref(spawnDefault())
 
-  const blockFormTarget: Ref<Block> = ref(blockDefault)
+  const blockFormTarget: Ref<Block> = ref(blockDefault())
 
   const toggleView = () => (viewForm.value = !viewForm.value)
 
   const setCultureTarget = (target: Culture | null) => {
-    if (spawnFormTarget.value.id) clearSpawnTarget()
+    if (spawnFormTarget.value.id || spawnFormTarget.value.should_render) clearSpawnTarget()
     if (blockFormTarget.value.id) clearBlockTarget()
 
     if (target != null) {
       cultureFormTarget.value = target
     } else {
-      cultureFormTarget.value = cultureDefault
+      cultureFormTarget.value = cultureDefault()
     }
 
     cultureFormTarget.value.should_render = true
   }
 
   const setSpawnTarget = (target: Spawn | null) => {
-    if (cultureFormTarget.value.id) clearCultureTarget()
-    if (blockFormTarget.value.id) clearBlockTarget()
+    if (cultureFormTarget.value.id || cultureFormTarget.value.should_render) clearCultureTarget()
+    if (blockFormTarget.value.id || blockFormTarget.value.should_render) clearBlockTarget()
 
     if (target != null) {
       spawnFormTarget.value = target
     } else {
-      spawnFormTarget.value = spawnDefault
+      spawnFormTarget.value = spawnDefault()
     }
+
+    spawnFormTarget.value.should_render = true
   }
 
   const setBlockTarget = (target: Block | null) => {
@@ -77,13 +79,13 @@ export const useFormStore = defineStore('form', () => {
     if (target != null) {
       blockFormTarget.value = target
     } else {
-      blockFormTarget.value = blockDefault
+      blockFormTarget.value = blockDefault()
     }
   }
 
-  const clearCultureTarget = () => (cultureFormTarget.value = cultureDefault)
-  const clearSpawnTarget = () => (spawnFormTarget.value = spawnDefault)
-  const clearBlockTarget = () => (blockFormTarget.value = blockDefault)
+  const clearCultureTarget = () => (cultureFormTarget.value = cultureDefault())
+  const clearSpawnTarget = () => (spawnFormTarget.value = spawnDefault())
+  const clearBlockTarget = () => (blockFormTarget.value = blockDefault())
 
   return {
     viewForm,
