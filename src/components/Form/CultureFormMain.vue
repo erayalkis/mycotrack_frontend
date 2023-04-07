@@ -1,7 +1,9 @@
 <template>
   <div>
-    {{ cultureFormTarget }}
-    <div v-if="cultureFormTarget.id !== -1">
+    <div
+      v-if="cultureFormTarget.id !== -1"
+      class="flex justify-center gap-2 font-medium text-lg p-2 md:text-xl"
+    >
       <h1>CLTR#{{ cultureFormTarget.id.toString().padStart(3, '0') }}</h1>
       <h1>{{ cultureFormTarget.genus + ' ' + cultureFormTarget.species }}</h1>
     </div>
@@ -53,6 +55,14 @@ const closeForm = () => {
   }
 }
 
+const handleCultureSubmit = async () => {
+  if (cultureFormTarget.value.id === -1) {
+    createCulture()
+  } else {
+    updateCulture()
+  }
+}
+
 const createCulture = async () => {
   if (data.value.id === null) return
 
@@ -82,14 +92,6 @@ const updateCulture = async () => {
   const cultureRes = await patchCulture(culture)
   console.log(cultureRes)
   updateCultureData(cultureFormTarget.value.id, cultureRes)
-}
-
-const handleCultureSubmit = async () => {
-  if (cultureFormTarget.value.id === -1) {
-    createCulture()
-  } else {
-    updateCulture()
-  }
 }
 </script>
 -

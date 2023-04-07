@@ -2,7 +2,7 @@
   <div class="p-2 text-center flex flex-col justify-center mt-2 items-center">
     <h1 class="text-2xl hidden mb-3 md:block">Quick Access</h1>
     <div class="flex gap-5 flex-wrap items-center justify-center h-full w-full">
-      <div class="border border-gray-300 rounded-md w-full h-96 md:w-80">
+      <div class="border border-gray-300 rounded-md w-full h-96 select-none md:w-80">
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <PetriDishSvg class="w-8 h-8 text-blue-500" />
           <h1 class="text-lg">Cultures</h1>
@@ -37,7 +37,7 @@
           </table>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-md w-full h-96 md:w-80">
+      <div class="border border-gray-300 rounded-md w-full h-96 select-none md:w-80">
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <JarSvg class="w-8 h-8 text-blue-500" />
           <h1 class="text-lg">Spawns</h1>
@@ -72,7 +72,7 @@
           </table>
         </div>
       </div>
-      <div class="border border-gray-300 rounded-md w-full h-96 md:w-80">
+      <div class="border border-gray-300 rounded-md w-full h-96 select-none md:w-80">
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <MushroomSvg class="w-8 h-8 text-blue-500" />
           <h1 class="text-lg">Blocks</h1>
