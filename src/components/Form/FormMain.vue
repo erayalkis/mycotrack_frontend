@@ -8,6 +8,7 @@
   >
     {{ cultureFormTarget.should_render }}
     {{ spawnFormTarget.should_render }}
+    {{ blockFormTarget.should_render }}
     <CultureFormMain v-if="cultureFormTarget.should_render" />
     <SpawnFormMain v-if="spawnFormTarget.should_render" />
   </div>
@@ -19,7 +20,7 @@ import CultureFormMain from './CultureFormMain.vue'
 import SpawnFormMain from './SpawnFormMain.vue'
 
 const formStore = useFormStore()
-const { viewForm, cultureFormTarget, spawnFormTarget } = storeToRefs(formStore)
+const { viewForm, cultureFormTarget, spawnFormTarget, blockFormTarget } = storeToRefs(formStore)
 </script>
 <style scoped>
 .myc-form {

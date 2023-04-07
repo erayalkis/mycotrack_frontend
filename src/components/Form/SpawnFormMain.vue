@@ -48,7 +48,7 @@ import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
 import JarSvg from '@/assets/components/svg/JarSvg.vue'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useSpawnStore, type SpawnPayload } from '@/stores/spawns'
 import { useCultureStore } from '@/stores/cultures'
 
@@ -63,13 +63,21 @@ const { data } = storeToRefs(userStore)
 const substrate = ref('')
 const cultureId = ref(-1)
 
-watch(spawnFormTarget, () => {
+const updateRefValues = () => {
   if (spawnFormTarget.value.substrate) {
     substrate.value = spawnFormTarget.value.substrate
   }
   if (spawnFormTarget.value.culture_id) {
     cultureId.value = spawnFormTarget.value.culture_id
   }
+}
+
+onMounted(() => {
+  updateRefValues()
+})
+
+watch(spawnFormTarget, () => {
+  updateRefValues()
 })
 
 const closeForm = () => {

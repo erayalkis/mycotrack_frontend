@@ -56,7 +56,7 @@ import { useCultureStore, type CulturePayload } from '@/stores/cultures'
 import { storeToRefs } from 'pinia'
 import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
 import PetriDishSvg from '@/assets/components/svg/PetriDishSvg.vue'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const formStore = useFormStore()
 const userStore = useUserStore()
@@ -68,10 +68,18 @@ const genus = ref('')
 const species = ref('')
 const source = ref('')
 
-watch(cultureFormTarget, () => {
+const updateRefValues = () => {
   genus.value = cultureFormTarget.value.genus
   species.value = cultureFormTarget.value.species
   source.value = cultureFormTarget.value.source
+}
+
+onMounted(() => {
+  updateRefValues()
+})
+
+watch(cultureFormTarget, () => {
+  updateRefValues()
 })
 
 const closeForm = () => {
