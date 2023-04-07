@@ -64,7 +64,7 @@ const substrate = ref('')
 const cultureId = ref(-1)
 
 const updateRefValues = () => {
-  if (spawnFormTarget.value.substrate) {
+  if (spawnFormTarget.value.substrate !== null) {
     substrate.value = spawnFormTarget.value.substrate
   }
   if (spawnFormTarget.value.culture_id) {
@@ -126,4 +126,3 @@ const updateSpawn = async () => {
   updateSpawnData(spawnFormTarget.value.id, cultureRes)
 }
 </script>
--
