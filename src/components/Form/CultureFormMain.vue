@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ArrowLeftSvg class="cursor-pointer" @click="closeForm" />
+    <ArrowLeftSvg class="w-8 h-8 m-2 cursor-pointer" @click="closeForm" />
     <PetriDishSvg class="w-10 h-10 text-blue-500 mx-auto" />
     <div
       v-if="cultureFormTarget.id !== -1"
@@ -32,10 +32,18 @@
         v-model="source"
       ></textarea>
       <br />
-      <button v-if="cultureFormTarget.id == -1" type="submit" class="bg-blue-500">
+      <button
+        v-if="cultureFormTarget.id == -1"
+        type="submit"
+        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+      >
         Add culture
       </button>
-      <button v-else type="submit" class="bg-blue-500 text-white rounded-md w-32 mx-auto">
+      <button
+        v-else
+        type="submit"
+        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+      >
         Edit culture
       </button>
     </form>
