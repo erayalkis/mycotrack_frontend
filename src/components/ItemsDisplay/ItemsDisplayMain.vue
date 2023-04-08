@@ -153,7 +153,12 @@ const openCultureForm = (culture: Culture) => {
 }
 
 const openEmptyCultureForm = () => {
-  if (formStore.cultureFormTarget.id === -1) formStore.toggleView()
+  if (formStore.cultureFormTarget.should_render && formStore.cultureFormTarget.id === -1) {
+    formStore.toggleView()
+    return
+  }
+
+  if (!formStore.viewForm) formStore.toggleView()
   formStore.setCultureTarget(null)
 }
 
@@ -171,7 +176,12 @@ const openSpawnForm = (spawn: Spawn) => {
 }
 
 const openEmptySpawnForm = () => {
-  if (formStore.spawnFormTarget.id === -1) formStore.toggleView()
+  if (formStore.spawnFormTarget.should_render && formStore.spawnFormTarget.id === -1) {
+    formStore.toggleView()
+    return
+  }
+
+  if (!formStore.viewForm) formStore.toggleView()
   formStore.setSpawnTarget(null)
 }
 
@@ -189,7 +199,12 @@ const openBlockForm = (block: Block) => {
 }
 
 const openEmptyBlockForm = () => {
-  if (formStore.blockFormTarget.id === -1) formStore.toggleView()
+  if (formStore.blockFormTarget.should_render && formStore.blockFormTarget.id === -1) {
+    formStore.toggleView()
+    return
+  }
+
+  if (!formStore.viewForm) formStore.toggleView()
   formStore.setBlockTarget(null)
 }
 </script>
