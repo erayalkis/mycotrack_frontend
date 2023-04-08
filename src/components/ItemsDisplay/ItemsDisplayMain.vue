@@ -55,7 +55,7 @@
             <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
               <template v-for="spawn in spawns" :key="spawn.id">
                 <tr>
-                  <td>SPWN#{{ spawn.id }}</td>
+                  <td>SPWN#{{ spawn.id.toString().padStart(3, '0') }}</td>
                   <td>{{ spawn.substrate }}</td>
                   <td class="flex">
                     <ZoomInSvg
@@ -188,5 +188,8 @@ const openBlockForm = (block: Block) => {
   formStore.setBlockTarget(block)
 }
 
-const openEmptyBlockForm = () => {}
+const openEmptyBlockForm = () => {
+  if (formStore.blockFormTarget.id === -1) formStore.toggleView()
+  formStore.setBlockTarget(null)
+}
 </script>

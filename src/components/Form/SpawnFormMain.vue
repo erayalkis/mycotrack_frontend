@@ -100,29 +100,29 @@ const handleSpawnSubmit = async () => {
 const createSpawn = async () => {
   if (data.value.id === null) return
 
-  const culture: SpawnPayload = {
+  const spawn: SpawnPayload = {
     id: null,
     substrate: substrate.value,
     culture_id: cultureId.value,
     user_id: data.value.id
   }
 
-  const cultureRes = await postSpawn(culture)
-  addToSpawns(cultureRes)
+  const spawnRes = await postSpawn(spawn)
+  addToSpawns(spawnRes)
 }
 
 const updateSpawn = async () => {
   if (data.value.id === null) return
 
-  const culture: SpawnPayload = {
+  const spawn: SpawnPayload = {
     id: spawnFormTarget.value.id,
     substrate: substrate.value,
     culture_id: cultureId.value,
     user_id: data.value.id
   }
 
-  const cultureRes = await patchSpawn(culture)
-  console.log(cultureRes)
-  updateSpawnData(spawnFormTarget.value.id, cultureRes)
+  const spawnRes = await patchSpawn(spawn)
+  console.log(spawnRes)
+  updateSpawnData(spawnFormTarget.value.id, spawnRes)
 }
 </script>

@@ -81,6 +81,8 @@ export const useFormStore = defineStore('form', () => {
     } else {
       blockFormTarget.value = blockDefault()
     }
+
+    blockFormTarget.value.should_render = true
   }
 
   const clearCultureTarget = () => (cultureFormTarget.value = cultureDefault())

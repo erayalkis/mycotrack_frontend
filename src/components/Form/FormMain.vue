@@ -6,11 +6,9 @@
     @touchmove.prevent
     @scroll.prevent
   >
-    {{ cultureFormTarget.should_render }}
-    {{ spawnFormTarget.should_render }}
-    {{ blockFormTarget.should_render }}
     <CultureFormMain v-if="cultureFormTarget.should_render" />
     <SpawnFormMain v-if="spawnFormTarget.should_render" />
+    <BlockFormMain v-if="blockFormTarget.should_render" />
   </div>
 </template>
 <script setup lang="ts">
@@ -18,6 +16,7 @@ import { useFormStore } from '@/stores/form'
 import { storeToRefs } from 'pinia'
 import CultureFormMain from './CultureFormMain.vue'
 import SpawnFormMain from './SpawnFormMain.vue'
+import BlockFormMain from './BlockFormMain.vue'
 
 const formStore = useFormStore()
 const { viewForm, cultureFormTarget, spawnFormTarget, blockFormTarget } = storeToRefs(formStore)
