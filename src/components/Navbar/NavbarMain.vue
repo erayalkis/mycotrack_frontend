@@ -1,5 +1,5 @@
 <template>
-  <nav class="sticky top-0 flex justify-between bg-gray-200 z-50">
+  <nav class="fixed w-full top-0 flex justify-between bg-gray-200 z-50">
     <RouterLink to="/">
       <h1 class="text-3xl p-2">Myco<span class="text-blue-500">Track</span></h1>
     </RouterLink>
