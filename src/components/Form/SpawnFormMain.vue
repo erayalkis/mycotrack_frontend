@@ -16,7 +16,7 @@
       <select class="border border-gray-200 rounded-md outline-0 hover:0" v-model="cultureId">
         <option disabled :value="-1">Select a culture</option>
         <template v-for="culture in cultures" :key="culture.id">
-          <option :value="culture.id">{{ culture.genus + '' + culture.species }}</option>
+          <option :value="culture.id">{{ culture.genus + ' ' + culture.species }}</option>
         </template>
       </select>
       <textarea
@@ -84,7 +84,7 @@ const closeForm = () => {
   if (viewForm.value) {
     formStore.toggleView()
     setTimeout(() => {
-      formStore.clearSpawnTarget()
+      formStore.clearSpawnTarget(false)
     }, 300)
   }
 }
