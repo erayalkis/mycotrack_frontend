@@ -44,7 +44,8 @@
       <button
         v-else
         type="submit"
-        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+        class="bg-blue-500 text-white rounded-md p-2 mx-auto flex justify-center gap-3 transition duration-300 ease-out hover:bg-blue-700"
+        :class="{ 'w-32': !isLoading, 'w-60': isLoading }"
       >
         Edit culture
       </button>
