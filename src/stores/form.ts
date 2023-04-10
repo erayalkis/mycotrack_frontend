@@ -47,8 +47,8 @@ export const useFormStore = defineStore('form', () => {
   const toggleView = () => (viewForm.value = !viewForm.value)
 
   const setCultureTarget = (target: Culture | null) => {
-    if (spawnFormTarget.value.id || spawnFormTarget.value.should_render) clearSpawnTarget()
-    if (blockFormTarget.value.id) clearBlockTarget()
+    if (spawnFormTarget.value.id || spawnFormTarget.value.should_render) clearSpawnTarget(false)
+    if (blockFormTarget.value.id) clearBlockTarget(false)
 
     if (target != null) {
       cultureFormTarget.value = target
@@ -60,8 +60,9 @@ export const useFormStore = defineStore('form', () => {
   }
 
   const setSpawnTarget = (target: Spawn | null) => {
-    if (cultureFormTarget.value.id || cultureFormTarget.value.should_render) clearCultureTarget()
-    if (blockFormTarget.value.id || blockFormTarget.value.should_render) clearBlockTarget()
+    if (cultureFormTarget.value.id || cultureFormTarget.value.should_render)
+      clearCultureTarget(false)
+    if (blockFormTarget.value.id || blockFormTarget.value.should_render) clearBlockTarget(false)
 
     if (target != null) {
       spawnFormTarget.value = target
@@ -73,8 +74,8 @@ export const useFormStore = defineStore('form', () => {
   }
 
   const setBlockTarget = (target: Block | null) => {
-    if (cultureFormTarget.value.id) clearCultureTarget()
-    if (spawnFormTarget.value.id) clearSpawnTarget()
+    if (cultureFormTarget.value.id) clearCultureTarget(false)
+    if (spawnFormTarget.value.id) clearSpawnTarget(false)
 
     if (target != null) {
       blockFormTarget.value = target
@@ -85,9 +86,18 @@ export const useFormStore = defineStore('form', () => {
     blockFormTarget.value.should_render = true
   }
 
-  const clearCultureTarget = () => (cultureFormTarget.value = cultureDefault())
-  const clearSpawnTarget = () => (spawnFormTarget.value = spawnDefault())
-  const clearBlockTarget = () => (blockFormTarget.value = blockDefault())
+  const clearCultureTarget = (keepView: boolean) => {
+    cultureFormTarget.value = cultureDefault()
+    if (keepView) cultureFormTarget.value.should_render = true
+  }
+  const clearSpawnTarget = (keepView: boolean) => {
+    spawnFormTarget.value = spawnDefault()
+    if (keepView) spawnFormTarget.value.should_render = true
+  }
+  const clearBlockTarget = (keepView: boolean) => {
+    blockFormTarget.value = blockDefault()
+    if (keepView) blockFormTarget.value.should_render = true
+  }
 
   return {
     viewForm,
