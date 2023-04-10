@@ -86,7 +86,7 @@ const closeForm = () => {
   if (viewForm.value) {
     formStore.toggleView()
     setTimeout(() => {
-      formStore.clearCultureTarget()
+      formStore.clearCultureTarget(false)
     }, 300)
   }
 }
