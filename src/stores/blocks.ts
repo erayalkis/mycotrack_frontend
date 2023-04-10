@@ -2,6 +2,7 @@ import { ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
+import { useFormStore } from './form'
 
 export type Block = {
   id: number
@@ -22,6 +23,7 @@ export type BlockPayload = {
 
 export const useBlockStore = defineStore('block', () => {
   const userStore = useUserStore()
+  const { clearBlockTarget } = useFormStore()
   const { token } = storeToRefs(userStore)
 
   const blocks: Ref<Block[]> = ref([])
@@ -51,6 +53,11 @@ export const useBlockStore = defineStore('block', () => {
     blocks.value[indexOfTarget] = block
   }
 
+  const removeBlockData = (block: Block) => {
+    const filteredBlocks = blocks.value.filter((currBlock) => currBlock.id !== block.id)
+    blocks.value = filteredBlocks
+  }
+
   const postBlock = async (block: BlockPayload) => {
     const body = {
       block: block
@@ -66,6 +73,7 @@ export const useBlockStore = defineStore('block', () => {
     })
 
     const json = await res.json()
+    clearBlockTarget(true)
     return json
   }
 
@@ -88,5 +96,27 @@ export const useBlockStore = defineStore('block', () => {
     return json
   }
 
-  return { blocks, fetchBlocks, addToBlocks, updateBlockData, postBlock, patchBlock }
+  const deleteBlock = async (block: Block) => {
+    const res = await fetch(`${serverConfig.serverUrl}/blocks/${block.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token.value
+      }
+    })
+
+    const json = await res.json()
+
+    return json
+  }
+
+  return {
+    blocks,
+    fetchBlocks,
+    addToBlocks,
+    updateBlockData,
+    removeBlockData,
+    postBlock,
+    patchBlock,
+    deleteBlock
+  }
 })

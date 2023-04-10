@@ -2,6 +2,7 @@ import { ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
+import { useFormStore } from './form'
 
 export type Culture = {
   id: number
@@ -24,6 +25,7 @@ export type CulturePayload = {
 
 export const useCultureStore = defineStore('culture', () => {
   const userStore = useUserStore()
+  const { clearCultureTarget } = useFormStore()
   const { token } = storeToRefs(userStore)
 
   const cultures: Ref<Culture[]> = ref([])
@@ -53,6 +55,11 @@ export const useCultureStore = defineStore('culture', () => {
     cultures.value[indexOfTarget] = culture
   }
 
+  const removeCultureData = (culture: Culture) => {
+    const filteredCultures = cultures.value.filter((cult) => cult.id !== culture.id)
+    cultures.value = filteredCultures
+  }
+
   const postCulture = async (culture: CulturePayload) => {
     const body = {
       culture: culture
@@ -68,6 +75,7 @@ export const useCultureStore = defineStore('culture', () => {
     })
 
     const json = await res.json()
+    clearCultureTarget(true)
     return json
   }
 
@@ -90,5 +98,27 @@ export const useCultureStore = defineStore('culture', () => {
     return json
   }
 
-  return { cultures, addToCultures, fetchCultures, postCulture, patchCulture, updateCultureData }
+  const deleteCulture = async (culture: Culture) => {
+    const res = await fetch(`${serverConfig.serverUrl}/cultures/${culture.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token.value
+      }
+    })
+
+    const json = await res.json()
+
+    return json
+  }
+
+  return {
+    cultures,
+    addToCultures,
+    fetchCultures,
+    postCulture,
+    patchCulture,
+    updateCultureData,
+    removeCultureData,
+    deleteCulture
+  }
 })

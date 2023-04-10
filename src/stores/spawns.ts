@@ -2,6 +2,7 @@ import { ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
+import { useFormStore } from './form'
 
 export type Spawn = {
   id: number
@@ -22,6 +23,7 @@ export type SpawnPayload = {
 
 export const useSpawnStore = defineStore('spawn', () => {
   const userStore = useUserStore()
+  const { clearSpawnTarget } = useFormStore()
   const { token } = storeToRefs(userStore)
 
   const spawns: Ref<Spawn[]> = ref([])
@@ -51,6 +53,11 @@ export const useSpawnStore = defineStore('spawn', () => {
     spawns.value[indexOfTarget] = spawn
   }
 
+  const removeSpawnData = (spawn: Spawn) => {
+    const filteredSpawns = spawns.value.filter((currSpawn) => currSpawn.id !== spawn.id)
+    spawns.value = filteredSpawns
+  }
+
   const postSpawn = async (spawn: SpawnPayload) => {
     const body = {
       spawn: spawn
@@ -66,6 +73,7 @@ export const useSpawnStore = defineStore('spawn', () => {
     })
 
     const json = await res.json()
+    clearSpawnTarget(true)
     return json
   }
 
@@ -88,5 +96,28 @@ export const useSpawnStore = defineStore('spawn', () => {
     return json
   }
 
-  return { spawns, fetchSpawns, addToSpawns, updateSpawnData, postSpawn, patchSpawn }
+  const deleteSpawn = async (spawn: Spawn) => {
+    const res = await fetch(`${serverConfig.serverUrl}/spawns/${spawn.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token.value
+      }
+    })
+
+    const json = await res.json()
+
+    console.log(json)
+    return json
+  }
+
+  return {
+    spawns,
+    fetchSpawns,
+    addToSpawns,
+    updateSpawnData,
+    removeSpawnData,
+    postSpawn,
+    patchSpawn,
+    deleteSpawn
+  }
 })

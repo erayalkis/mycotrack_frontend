@@ -29,6 +29,7 @@
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
+                      @click="deleteCultureConfirmation(culture)"
                     />
                   </td>
                 </tr>
@@ -64,6 +65,7 @@
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
+                      @click="deleteSpawnConfirmation(spawn)"
                     />
                   </td>
                 </tr>
@@ -99,6 +101,7 @@
                     />
                     <TrashSvg
                       class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
+                      @click="deleteBlockConfirmation(block)"
                     />
                   </td>
                 </tr>
@@ -143,7 +146,7 @@ const openCultureForm = (culture: Culture) => {
   if (formStore.cultureFormTarget && formStore.cultureFormTarget.id == culture.id) {
     formStore.toggleView()
     setTimeout(() => {
-      formStore.clearCultureTarget()
+      formStore.clearCultureTarget(false)
     }, 300)
     return
   }
@@ -166,7 +169,7 @@ const openSpawnForm = (spawn: Spawn) => {
   if (formStore.spawnFormTarget && formStore.spawnFormTarget.id == spawn.id) {
     formStore.toggleView()
     setTimeout(() => {
-      formStore.clearSpawnTarget()
+      formStore.clearSpawnTarget(false)
     }, 300)
     return
   }
@@ -189,7 +192,7 @@ const openBlockForm = (block: Block) => {
   if (formStore.blockFormTarget && formStore.blockFormTarget.id == block.id) {
     formStore.toggleView()
     setTimeout(() => {
-      formStore.clearBlockTarget()
+      formStore.clearBlockTarget(false)
     }, 300)
     return
   }
@@ -206,5 +209,29 @@ const openEmptyBlockForm = () => {
 
   if (!formStore.viewForm) formStore.toggleView()
   formStore.setBlockTarget(null)
+}
+
+const deleteCultureConfirmation = (culture: Culture) => {
+  const opt = confirm('Are you sure you want to delete this culture?')
+  if (opt) {
+    cultureStore.deleteCulture(culture)
+    cultureStore.removeCultureData(culture)
+  }
+}
+
+const deleteSpawnConfirmation = (spawn: Spawn) => {
+  const opt = confirm('Are you sure you want to delete this spawn?')
+  if (opt) {
+    spawnStore.deleteSpawn(spawn)
+    spawnStore.removeSpawnData(spawn)
+  }
+}
+
+const deleteBlockConfirmation = (block: Block) => {
+  const opt = confirm('Are you sure you want to delete this culture?')
+  if (opt) {
+    blockStore.deleteBlock(block)
+    blockStore.removeBlockData(block)
+  }
 }
 </script>
