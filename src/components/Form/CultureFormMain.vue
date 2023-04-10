@@ -35,9 +35,11 @@
       <button
         v-if="cultureFormTarget.id == -1"
         type="submit"
-        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+        class="bg-blue-500 text-white rounded-md p-2 mx-auto flex justify-center gap-3 transition-all duration-300 ease-out hover:bg-blue-700"
+        :class="{ 'w-32': !isLoading, 'w-60': isLoading }"
       >
         Add culture
+        <SpinnerSvg v-if="isLoading" />
       </button>
       <button
         v-else
@@ -56,6 +58,7 @@ import { useCultureStore, type CulturePayload } from '@/stores/cultures'
 import { storeToRefs } from 'pinia'
 import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
 import PetriDishSvg from '@/assets/components/svg/PetriDishSvg.vue'
+import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 import { ref, watch, onMounted } from 'vue'
 
 const formStore = useFormStore()
@@ -64,6 +67,7 @@ const { postCulture, addToCultures, patchCulture, updateCultureData } = useCultu
 const { viewForm, cultureFormTarget } = storeToRefs(formStore)
 const { data } = storeToRefs(userStore)
 
+const isLoading = ref(false)
 const genus = ref('')
 const species = ref('')
 const source = ref('')
@@ -92,11 +96,16 @@ const closeForm = () => {
 }
 
 const handleCultureSubmit = async () => {
+  if (!genus.value.length || !species.value.length) return
+
+  isLoading.value = true
+
   if (cultureFormTarget.value.id === -1) {
-    createCulture()
+    await createCulture()
   } else {
-    updateCulture()
+    await updateCulture()
   }
+  isLoading.value = false
 }
 
 const createCulture = async () => {

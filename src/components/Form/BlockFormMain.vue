@@ -12,7 +12,7 @@
       <h1 class="font-medium text-lg md:text-xl text-center p-2">Add a block</h1>
     </div>
 
-    <form @submit.prevent="handleCultureSubmit" class="flex flex-col gap-2 px-2 py-1">
+    <form @submit.prevent="handleBlockSubmit" class="flex flex-col gap-2 px-2 py-1">
       <select class="border border-gray-200 rounded-md outline-0 hover:0" v-model="spawnId">
         <option disabled :value="-1">Select a spawn</option>
         <template v-for="spawn in spawns" :key="spawn.id">
@@ -31,14 +31,17 @@
       <button
         v-if="blockFormTarget.id == -1"
         type="submit"
-        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+        class="bg-blue-500 text-white rounded-md p-2 flex mx-auto justify-center gap-3 transition-all duration-300 ease-out hover:bg-blue-700"
+        :class="{ 'w-32': !isLoading, 'w-60': isLoading }"
       >
         Add block
+        <SpinnerSvg v-if="isLoading" />
       </button>
       <button
         v-else
         type="submit"
-        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+        class="bg-blue-500 text-white rounded-md p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+        :class="{ 'w-32': !isLoading, 'w-60': isLoading }"
       >
         Edit block
       </button>
@@ -52,6 +55,7 @@ import { useBlockStore, type BlockPayload } from '@/stores/blocks'
 import { storeToRefs } from 'pinia'
 import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
 import MushroomSvg from '@/assets/components/svg/MushroomSvg.vue'
+import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 import { ref, watch, onMounted } from 'vue'
 import { useSpawnStore } from '@/stores/spawns'
 
@@ -62,6 +66,7 @@ const { postBlock, addToBlocks, updateBlockData, patchBlock } = useBlockStore()
 const { viewForm, blockFormTarget } = storeToRefs(formStore)
 const { data } = storeToRefs(userStore)
 
+const isLoading = ref(false)
 const substrate = ref('')
 const spawnId = ref(-1)
 
@@ -84,17 +89,21 @@ const closeForm = () => {
   if (viewForm.value) {
     formStore.toggleView()
     setTimeout(() => {
-      formStore.clearCultureTarget(false)
+      formStore.clearBlockTarget(false)
     }, 300)
   }
 }
 
-const handleCultureSubmit = async () => {
+const handleBlockSubmit = async () => {
+  if (!substrate.value.length || spawnId.value === -1) return
+
+  isLoading.value = true
   if (blockFormTarget.value.id === -1) {
-    createBlock()
+    await createBlock()
   } else {
-    updateBlock()
+    await updateBlock()
   }
+  isLoading.value = false
 }
 
 const createBlock = async () => {
@@ -107,8 +116,8 @@ const createBlock = async () => {
     user_id: data.value.id
   }
 
-  const cultureRes = await postBlock(block)
-  addToBlocks(cultureRes)
+  const blockRes = await postBlock(block)
+  addToBlocks(blockRes)
 }
 
 const updateBlock = async () => {

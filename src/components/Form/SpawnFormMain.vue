@@ -28,9 +28,11 @@
       <button
         v-if="spawnFormTarget.id == -1"
         type="submit"
-        class="bg-blue-500 text-white rounded-md w-32 p-2 mx-auto transition duration-300 ease-out hover:bg-blue-700"
+        class="bg-blue-500 text-white rounded-md p-2 mx-auto transition-all duration-300 ease-out hover:bg-blue-700"
+        :class="{ 'w-32': !isLoading, 'w-60': isLoading }"
       >
         Add spawn
+        <SpinnerSvg v-if="isLoading" />
       </button>
       <button
         v-else
@@ -48,6 +50,7 @@ import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import ArrowLeftSvg from '@/assets/components/svg/ArrowLeftSvg.vue'
 import JarSvg from '@/assets/components/svg/JarSvg.vue'
+import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 import { onMounted, ref, watch } from 'vue'
 import { useSpawnStore, type SpawnPayload } from '@/stores/spawns'
 import { useCultureStore } from '@/stores/cultures'
@@ -60,6 +63,7 @@ const { spawnFormTarget, viewForm } = storeToRefs(formStore)
 const userStore = useUserStore()
 const { data } = storeToRefs(userStore)
 
+const isLoading = ref(false)
 const substrate = ref('')
 const cultureId = ref(-1)
 
@@ -90,11 +94,15 @@ const closeForm = () => {
 }
 
 const handleSpawnSubmit = async () => {
+  if (!substrate.value.length || cultureId.value === -1) return
+
+  isLoading.value = true
   if (spawnFormTarget.value.id === -1) {
-    createSpawn()
+    await createSpawn()
   } else {
-    updateSpawn()
+    await updateSpawn()
   }
+  isLoading.value = false
 }
 
 const createSpawn = async () => {
