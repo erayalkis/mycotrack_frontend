@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ArrowLeftSvg class="w-8 h-8 m-2 cursor-pointer" @click="closeForm" />
+    <ArrowLeftSvg class="w-8 h-8 m-2 rotate-180 cursor-pointer" @click="closeForm" />
     <JarSvg class="w-10 h-10 text-blue-500 mx-auto" />
     <div
       v-if="spawnFormTarget.id !== -1"
