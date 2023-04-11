@@ -38,8 +38,7 @@
 </template>
 <script setup lang="ts">
 import { useFormStore } from '@/stores/form'
-import type { Spawn } from '@/stores/spawns'
-import { useSpawnStore } from '@/stores/spawns'
+import { useSpawnStore, type Spawn } from '@/stores/spawns'
 import { storeToRefs } from 'pinia'
 import JarSvg from '@/assets/components/svg/JarSvg.vue'
 import PlusSvg from '@/assets/components/svg/PlusSvg.vue'
