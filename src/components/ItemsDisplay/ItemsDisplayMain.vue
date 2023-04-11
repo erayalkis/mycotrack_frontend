@@ -2,42 +2,7 @@
   <div class="p-2 text-center flex flex-col justify-center mt-2 items-center">
     <h1 class="text-2xl hidden mb-3 md:block">Quick Access</h1>
     <div class="flex gap-5 flex-wrap items-center justify-center h-full w-full">
-      <div class="border border-gray-300 rounded-md w-full h-96 select-none md:w-80">
-        <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
-          <PetriDishSvg class="w-8 h-8 text-blue-500" />
-          <h1 class="text-lg">Cultures</h1>
-          <PlusSvg class="w-7 h-7 text-blue-500 cursor-pointer" @click="openEmptyCultureForm" />
-        </div>
-        <div class="h-full">
-          <table class="w-full text-sm text-left">
-            <thead class="uppercase">
-              <tr class="">
-                <th>ID</th>
-                <th>Species</th>
-                <th class="opacity-0">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
-              <template v-for="culture in cultures" :key="culture.id">
-                <tr>
-                  <td>CLTR#{{ culture.id.toString().padStart(3, '0') }}</td>
-                  <td>{{ culture.genus + ' ' + culture.species }}</td>
-                  <td class="flex">
-                    <ZoomInSvg
-                      class="w-5 h-5 ml-auto text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
-                      @click="openCultureForm(culture)"
-                    />
-                    <TrashSvg
-                      class="w-5 h-5 ml-2 mr-1 text-blue-500 cursor-pointer transition duration-300 ease-out hover:text-blue-700"
-                      @click="deleteCultureConfirmation(culture)"
-                    />
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <CultureDisplayVue />
       <div class="border border-gray-300 rounded-md w-full h-96 select-none md:w-80">
         <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
           <JarSvg class="w-8 h-8 text-blue-500" />
@@ -114,7 +79,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useCultureStore, type Culture } from '@/stores/cultures'
+import { useCultureStore } from '@/stores/cultures'
 import { useSpawnStore, type Spawn } from '@/stores/spawns'
 import { useBlockStore, type Block } from '@/stores/blocks'
 import { useFormStore } from '@/stores/form'
@@ -122,17 +87,16 @@ import { onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 import TrashSvg from '@/assets/components/svg/TrashSvg.vue'
 import ZoomInSvg from '@/assets/components/svg/ZoomInSvg.vue'
-import PetriDishSvg from '@/assets/components/svg/PetriDishSvg.vue'
 import JarSvg from '@/assets/components/svg/JarSvg.vue'
 import MushroomSvg from '@/assets/components/svg/MushroomSvg.vue'
 import PlusSvg from '@/assets/components/svg/PlusSvg.vue'
+import CultureDisplayVue from './CultureDisplay.vue'
 
 const cultureStore = useCultureStore()
 const spawnStore = useSpawnStore()
 const blockStore = useBlockStore()
 const formStore = useFormStore()
 
-const { cultures } = storeToRefs(cultureStore)
 const { spawns } = storeToRefs(spawnStore)
 const { blocks } = storeToRefs(blockStore)
 
@@ -141,29 +105,6 @@ onBeforeMount(async () => {
   await spawnStore.fetchSpawns()
   await blockStore.fetchBlocks()
 })
-
-const openCultureForm = (culture: Culture) => {
-  if (formStore.cultureFormTarget && formStore.cultureFormTarget.id == culture.id) {
-    formStore.toggleView()
-    setTimeout(() => {
-      formStore.clearCultureTarget(false)
-    }, 300)
-    return
-  }
-
-  if (!formStore.viewForm) formStore.toggleView()
-  formStore.setCultureTarget(culture)
-}
-
-const openEmptyCultureForm = () => {
-  if (formStore.cultureFormTarget.should_render && formStore.cultureFormTarget.id === -1) {
-    formStore.toggleView()
-    return
-  }
-
-  if (!formStore.viewForm) formStore.toggleView()
-  formStore.setCultureTarget(null)
-}
 
 const openSpawnForm = (spawn: Spawn) => {
   if (formStore.spawnFormTarget && formStore.spawnFormTarget.id == spawn.id) {
@@ -209,14 +150,6 @@ const openEmptyBlockForm = () => {
 
   if (!formStore.viewForm) formStore.toggleView()
   formStore.setBlockTarget(null)
-}
-
-const deleteCultureConfirmation = (culture: Culture) => {
-  const opt = confirm('Are you sure you want to delete this culture?')
-  if (opt) {
-    cultureStore.deleteCulture(culture)
-    cultureStore.removeCultureData(culture)
-  }
 }
 
 const deleteSpawnConfirmation = (spawn: Spawn) => {
