@@ -4,6 +4,7 @@
     <div class="flex gap-5 flex-wrap items-center justify-center h-full w-full">
       <CultureDisplayVue />
       <SpawnDisplayVue />
+      <BlockDisplayVue />
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ import { useBlockStore } from '@/stores/blocks'
 import { onBeforeMount } from 'vue'
 import CultureDisplayVue from './CultureDisplay.vue'
 import SpawnDisplayVue from './SpawnDisplay.vue'
+import BlockDisplayVue from './BlockDisplay.vue'
 
 const cultureStore = useCultureStore()
 const spawnStore = useSpawnStore()
