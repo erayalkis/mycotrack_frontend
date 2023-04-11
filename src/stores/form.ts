@@ -31,6 +31,7 @@ export const useFormStore = defineStore('form', () => {
   const blockDefault = () => ({
     id: -1,
     substrate: '',
+    status: -1,
     spawn_id: -1,
     user_id: -1,
     should_render: false,

@@ -13,13 +13,23 @@
     </div>
 
     <form @submit.prevent="handleBlockSubmit" class="flex flex-col gap-2 px-2 py-1">
-      <select class="border border-gray-200 rounded-md outline-0 hover:0" v-model="spawnId">
+      <select
+        class="border border-gray-200 rounded-md outline-0 indent-1 hover:0"
+        v-model="spawnId"
+      >
         <option disabled :value="-1">Select a spawn</option>
         <template v-for="spawn in spawns" :key="spawn.id">
           <option :value="spawn.id">
             SPWN#{{ spawn.id.toString().padStart(3, '0') }} | {{ spawn.substrate }}
           </option>
         </template>
+      </select>
+      <select class="border border-gray-200 rounded-md indent-1 outline-0 hover:0" v-model="status">
+        <option disabled :value="-1">Block Status</option>
+        <option value="0">Inoculated</option>
+        <option value="1">Mycelium Healthy</option>
+        <option value="2">Fruiting / Harvesting</option>
+        <option value="3">Discarded</option>
       </select>
       <textarea
         placeholder="Substrate"
@@ -70,12 +80,14 @@ const { data } = storeToRefs(userStore)
 const isLoading = ref(false)
 const substrate = ref('')
 const spawnId = ref(-1)
+const status = ref(-1)
 
 const updateRefValues = () => {
   substrate.value = blockFormTarget.value.substrate
   if (blockFormTarget.value.spawn_id) {
     spawnId.value = blockFormTarget.value.spawn_id
   }
+  status.value = blockFormTarget.value.status
 }
 
 onMounted(() => {
@@ -114,6 +126,7 @@ const createBlock = async () => {
     id: null,
     spawn_id: spawnId.value,
     substrate: substrate.value,
+    status: status.value,
     user_id: data.value.id
   }
 
@@ -128,6 +141,7 @@ const updateBlock = async () => {
     id: blockFormTarget.value.id,
     spawn_id: spawnId.value,
     substrate: substrate.value,
+    status: status.value,
     user_id: data.value.id
   }
 
