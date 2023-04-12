@@ -1,4 +1,5 @@
 import { defineStore, storeToRefs } from 'pinia'
+import { computed } from 'vue'
 import { useCultureStore, type Culture } from './cultures'
 import { useBlockStore } from './blocks'
 import { useSpawnStore } from './spawns'
@@ -16,8 +17,12 @@ export const useStatisticsStore = defineStore('statistics', () => {
   // unusedCultures: Array of cultures who have not been used in a spawn bag yet
   // usedOnceCultures: Array of cultures that have been used once
   // usedMultipleCultures: Array of cultures that have been used more than once
-  const cultureUsageStatistics = () => {
-    const statistics: { [key: string]: Culture[] } = {}
+  const cultureUsageStatistics = computed(() => {
+    const statistics: { [key: string]: Array<Culture> } = {
+      unusedCultures: [],
+      usedOnceCultures: [],
+      usedMultipleCultures: []
+    }
 
     cultures.value.forEach((culture) => {
       // Filtered array of spawns where culture_id matches current culture's id. Gives us a usage count of the current culture
@@ -32,8 +37,9 @@ export const useStatisticsStore = defineStore('statistics', () => {
       }
     })
 
+    console.log(statistics)
     return statistics
-  }
+  })
 
   return { cultureUsageStatistics }
 })
