@@ -43,10 +43,10 @@ export default defineComponent({
         datasets: [
           {
             data: [
-              this.statisticsStore.spawnUsageStatistics.usedSpawns.length,
-              this.statisticsStore.spawnUsageStatistics.unusedSpawns.length
+              this.statisticsStore.spawnUsageStatistics.unusedSpawns.length,
+              this.statisticsStore.spawnUsageStatistics.usedSpawns.length
             ],
-            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2']
+            backgroundColor: ['#44b4db', '#55c9f2']
           }
         ]
       }
@@ -60,7 +60,33 @@ export default defineComponent({
           },
           tooltip: {
             callbacks: {
-              afterBody: (item: any) => {}
+              afterBody: (item: any) => {
+                console.log(item)
+                let body = '\n'
+                if (item[0].label === 'Unused') {
+                  this.statisticsStore.spawnUsageStatistics.unusedSpawns.forEach((spawn, idx) => {
+                    const newLine = `- SPWN#${
+                      spawn.id.toString().padStart(3, '0') + ' | ' + spawn.substrate
+                    }`
+                    const isLastIdx =
+                      idx === this.statisticsStore.spawnUsageStatistics.unusedSpawns.length - 1
+                    body += newLine
+                    if (!isLastIdx) body += '\n'
+                  })
+                } else if (item[0].label === 'Used') {
+                  this.statisticsStore.spawnUsageStatistics.usedSpawns.forEach((spawn, idx) => {
+                    const newLine = `- SPWN#${
+                      spawn.id.toString().padStart(3, '0') + ' | ' + spawn.substrate
+                    }`
+                    const isLastIdx =
+                      idx === this.statisticsStore.spawnUsageStatistics.usedSpawns.length - 1
+                    body += newLine
+                    if (!isLastIdx) body += '\n'
+                  })
+                }
+
+                return body
+              }
             }
           }
         }
