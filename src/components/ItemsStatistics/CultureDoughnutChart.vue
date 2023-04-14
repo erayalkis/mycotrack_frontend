@@ -1,11 +1,18 @@
 <template>
   <div>
-    <DoughnutChart ref="doughnutRef" :chartData="chartData" :options="options" />
+    <h1 v-if="allDataNull">Start adding some data to see your statistics!</h1>
+    <DoughnutChart
+      v-if="!allDataNull"
+      ref="doughnutRef"
+      class="w-64 h-64 mx-auto mt-1"
+      :chartData="chartData"
+      :options="options"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { DoughnutChart, type ExtractComponentData } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { useStatisticsStore } from '@/stores/statistics'
@@ -24,6 +31,13 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useStatisticsStore),
+    allDataNull() {
+      return (
+        this.statisticsStore.cultureUsageStatistics.unusedCultures.length === 0 &&
+        this.statisticsStore.cultureUsageStatistics.usedOnceCultures.length === 0 &&
+        this.statisticsStore.cultureUsageStatistics.usedMultipleCultures.length === 0
+      )
+    },
     chartData() {
       return {
         labels: ['Unused', 'Used Once', 'Used Multiple Times'],
@@ -34,7 +48,7 @@ export default defineComponent({
               this.statisticsStore.cultureUsageStatistics.usedOnceCultures.length,
               this.statisticsStore.cultureUsageStatistics.usedMultipleCultures.length
             ],
-            backgroundColor: '#77CEFF'
+            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2']
           }
         ]
       }
