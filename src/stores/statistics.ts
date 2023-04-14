@@ -2,7 +2,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { useCultureStore, type Culture } from './cultures'
 import { useBlockStore } from './blocks'
-import { useSpawnStore } from './spawns'
+import { useSpawnStore, type Spawn } from './spawns'
 
 export const useStatisticsStore = defineStore('statistics', () => {
   const cultureStore = useCultureStore()
@@ -41,5 +41,25 @@ export const useStatisticsStore = defineStore('statistics', () => {
     return statistics
   })
 
-  return { cultureUsageStatistics }
+  const spawnUsageStatistics = computed(() => {
+    const statistics: { [key: string]: Array<Spawn> } = {
+      usedSpawns: [],
+      unusedSpawns: []
+    }
+
+    spawns.value.forEach((spawn) => {
+      const usedCount = blocks.value.filter((block) => block.spawn_id === spawn.id).length
+
+      if (usedCount === 0) {
+        statistics.unusedSpawns.push(spawn)
+      } else {
+        statistics.usedSpawns.push(spawn)
+      }
+    })
+
+    console.log(statistics)
+    return statistics
+  })
+
+  return { cultureUsageStatistics, spawnUsageStatistics }
 })
