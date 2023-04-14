@@ -12,12 +12,13 @@
       </div>
       <div class="border border-gray-300 rounded-md w-full h-80 select-none md:w-80">
         <h1>Status of blocks</h1>
-        <div>Graph</div>
+        <BlockDoughnutChart />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import BlockDoughnutChart from './BlockDoughnutChart.vue'
 import CultureDoughnutChart from './CultureDoughnutChart.vue'
 import SpawnPieChart from './SpawnPieChart.vue'
 </script>
