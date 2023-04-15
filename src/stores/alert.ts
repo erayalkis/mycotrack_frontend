@@ -15,14 +15,21 @@ export const useAlertStore = defineStore('alert', () => {
 
   let autoSkipTimeout: NodeJS.Timeout | null = null
 
-  watch(messages, () => {
-    if (autoSkipTimeout != null) clearTimeout(autoSkipTimeout)
-    if (messages.value.length === 0) return
+  watch(
+    messages,
+    () => {
+      console.log('hi')
+      if (autoSkipTimeout != null) clearTimeout(autoSkipTimeout)
+      if (messages.value.length === 0) return
+      console.log('adding timeout')
 
-    autoSkipTimeout = setTimeout(() => {
-      popMessage()
-    }, 1200)
-  })
+      autoSkipTimeout = setTimeout(() => {
+        console.log('timeout dispatched')
+        popMessage()
+      }, 2000)
+    },
+    { deep: true }
+  )
 
   return { messages, addMessage, popMessage, clearMessages }
 })
