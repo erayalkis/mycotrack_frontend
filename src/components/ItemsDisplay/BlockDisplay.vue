@@ -14,7 +14,7 @@
             <th class="opacity-0">Actions</th>
           </tr>
         </thead>
-        <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
+        <tbody v-if="!loading" class="text-left bg-gray-100 border-y border-gray-200 h-full">
           <template v-for="block in blocks" :key="block.id">
             <tr class="hover:bg-gray-200">
               <td>BLCK#{{ block.id.toString().padStart(3, '0') }}</td>
@@ -33,6 +33,7 @@
           </template>
         </tbody>
       </table>
+      <SpinnerSvg v-if="loading" class="w-14 h-14 ml-auto mr-auto mt-2" />
     </div>
   </div>
 </template>
@@ -44,10 +45,11 @@ import TrashSvg from '@/assets/components/svg/TrashSvg.vue'
 import ZoomInSvg from '@/assets/components/svg/ZoomInSvg.vue'
 import MushroomSvg from '@/assets/components/svg/MushroomSvg.vue'
 import PlusSvg from '@/assets/components/svg/PlusSvg.vue'
+import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 
 const blockStore = useBlockStore()
 const formStore = useFormStore()
-const { blocks } = storeToRefs(blockStore)
+const { blocks, loading } = storeToRefs(blockStore)
 
 const openBlockForm = (block: Block) => {
   if (formStore.blockFormTarget && formStore.blockFormTarget.id == block.id) {
