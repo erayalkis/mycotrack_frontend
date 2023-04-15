@@ -1,6 +1,6 @@
 <template>
   <div class="border border-gray-300 rounded-md w-full h-96 select-none md:w-80">
-    <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-1">
+    <div class="flex mt-1 p-2 border-b border-gray-300 items-center justify-center gap-2">
       <PetriDishSvg class="w-8 h-8 text-blue-500" />
       <h1 class="text-lg">Cultures</h1>
       <PlusSvg class="w-7 h-7 text-blue-500 cursor-pointer" @click="openEmptyCultureForm" />
