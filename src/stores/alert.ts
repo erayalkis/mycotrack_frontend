@@ -1,4 +1,4 @@
-import { ref, type Ref } from 'vue'
+import { ref, watch, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 
 type Message = {
@@ -12,6 +12,17 @@ export const useAlertStore = defineStore('alert', () => {
   const addMessage = (msg: Message) => messages.value.push(msg)
   const popMessage = () => messages.value.shift()
   const clearMessages = () => (messages.value.length = 0)
+
+  let autoSkipTimeout: NodeJS.Timeout | null = null
+
+  watch(messages, () => {
+    if (autoSkipTimeout != null) clearTimeout(autoSkipTimeout)
+    if (messages.value.length === 0) return
+
+    autoSkipTimeout = setTimeout(() => {
+      popMessage()
+    }, 1200)
+  })
 
   return { messages, addMessage, popMessage, clearMessages }
 })
