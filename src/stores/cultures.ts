@@ -3,6 +3,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
 import { useFormStore } from './form'
+import { useAlertStore } from './alert'
 
 export type Culture = {
   id: number
@@ -27,6 +28,8 @@ export const useCultureStore = defineStore('culture', () => {
   const userStore = useUserStore()
   const { clearCultureTarget } = useFormStore()
   const { token } = storeToRefs(userStore)
+
+  const { addMessage } = useAlertStore()
 
   const cultures: Ref<Culture[]> = ref([])
 
@@ -76,6 +79,8 @@ export const useCultureStore = defineStore('culture', () => {
 
     const json = await res.json()
     clearCultureTarget(true)
+
+    addMessage({ content: 'Culture successfully created!', type: 'success' })
     return json
   }
 

@@ -3,6 +3,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
 import { useFormStore } from './form'
+import { useAlertStore } from './alert'
 
 export type Spawn = {
   id: number
@@ -25,6 +26,8 @@ export const useSpawnStore = defineStore('spawn', () => {
   const userStore = useUserStore()
   const { clearSpawnTarget } = useFormStore()
   const { token } = storeToRefs(userStore)
+
+  const { addMessage } = useAlertStore()
 
   const spawns: Ref<Spawn[]> = ref([])
 
@@ -74,6 +77,8 @@ export const useSpawnStore = defineStore('spawn', () => {
 
     const json = await res.json()
     clearSpawnTarget(true)
+
+    addMessage({ content: 'Spawn successfully created!', type: 'success' })
     return json
   }
 

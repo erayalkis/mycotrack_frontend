@@ -3,6 +3,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { serverConfig } from '@/config/serverConfig'
 import { useUserStore } from './user'
 import { useFormStore } from './form'
+import { useAlertStore } from './alert'
 
 export type Block = {
   id: number
@@ -27,6 +28,8 @@ export const useBlockStore = defineStore('block', () => {
   const userStore = useUserStore()
   const { clearBlockTarget } = useFormStore()
   const { token } = storeToRefs(userStore)
+
+  const { addMessage } = useAlertStore()
 
   const blocks: Ref<Block[]> = ref([])
 
@@ -76,6 +79,8 @@ export const useBlockStore = defineStore('block', () => {
 
     const json = await res.json()
     clearBlockTarget(true)
+
+    addMessage({ content: 'Block successfully created!', type: 'success' })
     return json
   }
 
