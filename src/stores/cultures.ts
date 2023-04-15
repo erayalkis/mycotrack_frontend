@@ -32,6 +32,7 @@ export const useCultureStore = defineStore('culture', () => {
   const { addMessage } = useAlertStore()
 
   const cultures: Ref<Culture[]> = ref([])
+  const loading: Ref<boolean> = ref(true)
 
   const fetchCultures = async () => {
     const res = await fetch(`${serverConfig.serverUrl}/cultures`, {
@@ -46,6 +47,7 @@ export const useCultureStore = defineStore('culture', () => {
 
     console.log(json)
     cultures.value = json
+    loading.value = false
     return json
   }
 
@@ -118,6 +120,7 @@ export const useCultureStore = defineStore('culture', () => {
 
   return {
     cultures,
+    loading,
     addToCultures,
     fetchCultures,
     postCulture,

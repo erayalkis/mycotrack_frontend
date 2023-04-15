@@ -30,6 +30,7 @@ export const useSpawnStore = defineStore('spawn', () => {
   const { addMessage } = useAlertStore()
 
   const spawns: Ref<Spawn[]> = ref([])
+  const loading: Ref<boolean> = ref(true)
 
   const fetchSpawns = async () => {
     const res = await fetch(`${serverConfig.serverUrl}/spawns`, {
@@ -44,6 +45,7 @@ export const useSpawnStore = defineStore('spawn', () => {
 
     console.log(json)
     spawns.value = json
+    loading.value = false
     return json
   }
 
@@ -117,6 +119,7 @@ export const useSpawnStore = defineStore('spawn', () => {
 
   return {
     spawns,
+    loading,
     fetchSpawns,
     addToSpawns,
     updateSpawnData,

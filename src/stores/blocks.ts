@@ -32,6 +32,7 @@ export const useBlockStore = defineStore('block', () => {
   const { addMessage } = useAlertStore()
 
   const blocks: Ref<Block[]> = ref([])
+  const loading: Ref<boolean> = ref(true)
 
   const fetchBlocks = async () => {
     const res = await fetch(`${serverConfig.serverUrl}/blocks`, {
@@ -46,6 +47,7 @@ export const useBlockStore = defineStore('block', () => {
 
     console.log(json)
     blocks.value = json
+    loading.value = false
     return json
   }
 
@@ -118,6 +120,7 @@ export const useBlockStore = defineStore('block', () => {
 
   return {
     blocks,
+    loading,
     fetchBlocks,
     addToBlocks,
     updateBlockData,
