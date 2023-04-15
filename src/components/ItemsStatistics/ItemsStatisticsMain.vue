@@ -1,8 +1,8 @@
 <template>
   <div class="p-2 text-center flex flex-col justify-center mt-2 items-center mt-10">
-    <div class="flex gap-2">
+    <div class="flex gap-2 items-center">
       <h1 class="text-2xl mb-3">Statistics</h1>
-      <PieChartSvg class="w-8 h-8 text-blue-500" />
+      <PieChartSvg class="w-8 h-8 text-blue-500 mb-2.5" />
     </div>
 
     <div class="flex gap-5 flex-wrap items-center justify-center h-full w-full">
