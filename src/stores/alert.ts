@@ -26,7 +26,7 @@ export const useAlertStore = defineStore('alert', () => {
       autoSkipTimeout = setTimeout(() => {
         console.log('timeout dispatched')
         popMessage()
-      }, 2000)
+      }, 1600)
     },
     { deep: true }
   )
