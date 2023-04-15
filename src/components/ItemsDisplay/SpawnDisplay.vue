@@ -14,7 +14,7 @@
             <th class="opacity-0">Actions</th>
           </tr>
         </thead>
-        <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
+        <tbody v-if="!loading" class="text-left bg-gray-100 border-y border-gray-200 h-full">
           <template v-for="spawn in spawns" :key="spawn.id">
             <tr class="hover:bg-gray-200">
               <td>SPWN#{{ spawn.id.toString().padStart(3, '0') }}</td>
@@ -33,6 +33,7 @@
           </template>
         </tbody>
       </table>
+      <SpinnerSvg v-if="loading" class="w-16 h-16 ml-auto mr-auto mt-5" />
     </div>
   </div>
 </template>
@@ -44,10 +45,11 @@ import JarSvg from '@/assets/components/svg/JarSvg.vue'
 import PlusSvg from '@/assets/components/svg/PlusSvg.vue'
 import TrashSvg from '@/assets/components/svg/TrashSvg.vue'
 import ZoomInSvg from '@/assets/components/svg/ZoomInSvg.vue'
+import SpinnerSvg from '@/assets/components/svg/SpinnerSvg.vue'
 
 const formStore = useFormStore()
 const spawnStore = useSpawnStore()
-const { spawns } = storeToRefs(spawnStore)
+const { spawns, loading } = storeToRefs(spawnStore)
 
 const openSpawnForm = (spawn: Spawn) => {
   if (formStore.spawnFormTarget && formStore.spawnFormTarget.id == spawn.id) {
