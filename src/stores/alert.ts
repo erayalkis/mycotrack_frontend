@@ -18,13 +18,10 @@ export const useAlertStore = defineStore('alert', () => {
   watch(
     messages,
     () => {
-      console.log('hi')
       if (autoSkipTimeout != null) clearTimeout(autoSkipTimeout)
       if (messages.value.length === 0) return
-      console.log('adding timeout')
 
       autoSkipTimeout = setTimeout(() => {
-        console.log('timeout dispatched')
         popMessage()
       }, 1600)
     },
