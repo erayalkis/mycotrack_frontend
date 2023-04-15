@@ -33,7 +33,7 @@
           </template>
         </tbody>
       </table>
-      <SpinnerSvg v-if="loading" class="w-14 h-14 ml-auto mr-auto mt-2" />
+      <SpinnerSvg v-if="loading" class="w-16 h-16 ml-auto mr-auto mt-5" />
     </div>
   </div>
 </template>
