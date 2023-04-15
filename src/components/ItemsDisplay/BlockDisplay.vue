@@ -16,7 +16,7 @@
         </thead>
         <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
           <template v-for="block in blocks" :key="block.id">
-            <tr>
+            <tr class="hover:bg-gray-200">
               <td>BLCK#{{ block.id.toString().padStart(3, '0') }}</td>
               <td>{{ block.substrate }}</td>
               <td class="flex">

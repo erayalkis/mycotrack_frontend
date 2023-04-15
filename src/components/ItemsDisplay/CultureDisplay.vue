@@ -16,7 +16,7 @@
         </thead>
         <tbody class="text-left bg-gray-100 border-y border-gray-200 h-full">
           <template v-for="culture in cultures" :key="culture.id">
-            <tr>
+            <tr class="hover:bg-gray-200">
               <td>CLTR#{{ culture.id.toString().padStart(3, '0') }}</td>
               <td>{{ culture.genus + ' ' + culture.species }}</td>
               <td class="flex">
