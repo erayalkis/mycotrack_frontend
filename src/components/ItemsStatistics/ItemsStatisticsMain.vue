@@ -11,7 +11,7 @@
         <SpawnPieChart />
       </div>
       <div class="border border-gray-300 rounded-md w-full h-80 select-none md:w-80">
-        <h1>Status of blocks</h1>
+        <h1 class="p-3 text-lg border-b border-gray-300">Block Status Data</h1>
         <BlockDoughnutChart />
       </div>
     </div>
