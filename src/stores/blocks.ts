@@ -102,6 +102,7 @@ export const useBlockStore = defineStore('block', () => {
 
     const json = await res.json()
 
+    addMessage({ content: 'Block successfully updated!', type: 'success' })
     return json
   }
 
@@ -115,6 +116,7 @@ export const useBlockStore = defineStore('block', () => {
 
     const json = await res.json()
 
+    addMessage({ content: 'Block successfully deleted!', type: 'success' })
     return json
   }
 
