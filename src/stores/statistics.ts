@@ -43,7 +43,8 @@ export const useStatisticsStore = defineStore('statistics', () => {
 
   const spawnUsageStatistics = computed(() => {
     const statistics: { [key: string]: Array<Spawn> } = {
-      usedSpawns: [],
+      usedOnceSpawns: [],
+      usedMultipleSpawns: [],
       unusedSpawns: []
     }
 
@@ -52,8 +53,10 @@ export const useStatisticsStore = defineStore('statistics', () => {
 
       if (usedCount === 0) {
         statistics.unusedSpawns.push(spawn)
+      } else if (usedCount === 1) {
+        statistics.usedOnceSpawns.push(spawn)
       } else {
-        statistics.usedSpawns.push(spawn)
+        statistics.usedMultipleSpawns.push(spawn)
       }
     })
 
