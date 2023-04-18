@@ -29,5 +29,5 @@
 import PieChartSvg from '@/assets/components/svg/PieChartSvg.vue'
 import BlockDoughnutChart from './BlockDoughnutChart.vue'
 import CultureDoughnutChart from './CultureDoughnutChart.vue'
-import SpawnPieChart from './SpawnPieChart.vue'
+import SpawnPieChart from './SpawnDoughnutChart.vue'
 </script>

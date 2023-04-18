@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 v-if="allDataNull">Start adding some data to see your statistics!</h1>
-    <PieChart
+    <DoughnutChart
       v-if="!allDataNull"
       ref="pieRef"
       class="w-64 h-64 mx-auto mt-1"
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { PieChart, type ExtractComponentData } from 'vue-chart-3'
+import { DoughnutChart, type ExtractComponentData } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { useStatisticsStore } from '@/stores/statistics'
 import { mapStores } from 'pinia'
@@ -22,10 +22,10 @@ Chart.register(...registerables)
 
 export default defineComponent({
   name: 'CultureUsageDonutChart',
-  components: { PieChart },
+  components: { DoughnutChart },
 
   setup() {
-    const pieRef = ref<ExtractComponentData<typeof PieChart>>()
+    const pieRef = ref<ExtractComponentData<typeof DoughnutChart>>()
 
     return { pieRef }
   },
@@ -46,7 +46,7 @@ export default defineComponent({
               this.statisticsStore.spawnUsageStatistics.unusedSpawns.length,
               this.statisticsStore.spawnUsageStatistics.usedSpawns.length
             ],
-            backgroundColor: ['#44b4db', '#55c9f2']
+            backgroundColor: ['#77CEFF', '#44b4db']
           }
         ]
       }
