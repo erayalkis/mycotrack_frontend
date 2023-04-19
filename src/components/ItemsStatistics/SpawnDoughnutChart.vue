@@ -33,20 +33,22 @@ export default defineComponent({
     ...mapStores(useStatisticsStore),
     allDataNull() {
       return (
-        this.statisticsStore.spawnUsageStatistics.usedSpawns.length === 0 &&
+        this.statisticsStore.spawnUsageStatistics.usedOnceSpawns.length === 0 &&
+        this.statisticsStore.spawnUsageStatistics.usedMultipleSpawns.length === 0 &&
         this.statisticsStore.spawnUsageStatistics.unusedSpawns.length === 0
       )
     },
     chartData() {
       return {
-        labels: ['Unused', 'Used'],
+        labels: ['Unused', 'Used Once', 'Used Multiple Times'],
         datasets: [
           {
             data: [
               this.statisticsStore.spawnUsageStatistics.unusedSpawns.length,
-              this.statisticsStore.spawnUsageStatistics.usedSpawns.length
+              this.statisticsStore.spawnUsageStatistics.usedOnceSpawns.length,
+              this.statisticsStore.spawnUsageStatistics.usedMultipleSpawns.length
             ],
-            backgroundColor: ['#77CEFF', '#44b4db']
+            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2']
           }
         ]
       }
@@ -63,6 +65,7 @@ export default defineComponent({
               afterBody: (item: any) => {
                 console.log(item)
                 let body = '\n'
+                console.log(item[0].label)
                 if (item[0].label === 'Unused') {
                   this.statisticsStore.spawnUsageStatistics.unusedSpawns.forEach((spawn, idx) => {
                     const newLine = `- SPWN#${
@@ -73,16 +76,29 @@ export default defineComponent({
                     body += newLine
                     if (!isLastIdx) body += '\n'
                   })
-                } else if (item[0].label === 'Used') {
-                  this.statisticsStore.spawnUsageStatistics.usedSpawns.forEach((spawn, idx) => {
+                } else if (item[0].label === 'Used Once') {
+                  this.statisticsStore.spawnUsageStatistics.usedOnceSpawns.forEach((spawn, idx) => {
                     const newLine = `- SPWN#${
                       spawn.id.toString().padStart(3, '0') + ' | ' + spawn.substrate
                     }`
                     const isLastIdx =
-                      idx === this.statisticsStore.spawnUsageStatistics.usedSpawns.length - 1
+                      idx === this.statisticsStore.spawnUsageStatistics.usedOnceSpawns.length - 1
                     body += newLine
                     if (!isLastIdx) body += '\n'
                   })
+                } else if (item[0].label === 'Used Multiple Times') {
+                  this.statisticsStore.spawnUsageStatistics.usedMultipleSpawns.forEach(
+                    (spawn, idx) => {
+                      const newLine = `- SPWN#${
+                        spawn.id.toString().padStart(3, '0') + ' | ' + spawn.substrate
+                      }`
+                      const isLastIdx =
+                        idx ===
+                        this.statisticsStore.spawnUsageStatistics.usedMultipleSpawns.length - 1
+                      body += newLine
+                      if (!isLastIdx) body += '\n'
+                    }
+                  )
                 }
 
                 return body
