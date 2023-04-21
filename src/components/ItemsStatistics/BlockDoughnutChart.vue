@@ -49,7 +49,7 @@ export default defineComponent({
             ],
             // 53b8e9
             // '#62bce7' <- old
-            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2', '#53bce9']
+            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2', '#409DC7']
           }
         ]
       }
