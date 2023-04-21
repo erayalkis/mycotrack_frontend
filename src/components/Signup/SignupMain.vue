@@ -80,7 +80,6 @@ const signup = async () => {
 
   isSigningUp.value = true
   const ret = await signUp(username.value, email.value, password.value, passwordConfirmation.value)
-  console.log(ret)
   isSigningUp.value = false
   push('/')
 }

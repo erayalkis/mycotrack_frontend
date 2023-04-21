@@ -45,7 +45,6 @@ export const useCultureStore = defineStore('culture', () => {
 
     const json = await res.json()
 
-    console.log(json)
     cultures.value = json
     loading.value = false
     return json

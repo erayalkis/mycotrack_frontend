@@ -37,7 +37,6 @@ export const useStatisticsStore = defineStore('statistics', () => {
       }
     })
 
-    console.log(statistics)
     return statistics
   })
 
@@ -60,7 +59,6 @@ export const useStatisticsStore = defineStore('statistics', () => {
       }
     })
 
-    console.log(statistics)
     return statistics
   })
 
@@ -86,7 +84,6 @@ export const useStatisticsStore = defineStore('statistics', () => {
       }
     })
 
-    console.log(statistics)
     return statistics
   })
 

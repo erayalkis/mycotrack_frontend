@@ -146,7 +146,6 @@ const updateBlock = async () => {
   }
 
   const blockRes = await patchBlock(block)
-  console.log(blockRes)
   updateBlockData(blockFormTarget.value.id, blockRes)
 }
 </script>

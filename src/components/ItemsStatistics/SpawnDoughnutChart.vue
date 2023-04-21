@@ -69,9 +69,7 @@ export default defineComponent({
           tooltip: {
             callbacks: {
               afterBody: (item: any) => {
-                console.log(item)
                 let body = '\n'
-                console.log(item[0].label)
                 if (item[0].label === 'Unused') {
                   this.statisticsStore.spawnUsageStatistics.unusedSpawns.forEach((spawn, idx) => {
                     const newLine = `- SPWN#${

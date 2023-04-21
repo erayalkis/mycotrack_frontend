@@ -45,7 +45,6 @@ export const useBlockStore = defineStore('block', () => {
 
     const json = await res.json()
 
-    console.log(json)
     blocks.value = json
     loading.value = false
     return json

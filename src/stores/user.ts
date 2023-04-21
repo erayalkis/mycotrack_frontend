@@ -65,7 +65,6 @@ export const useUserStore = defineStore('user', () => {
 
     if (res.status !== 200) {
       console.error('Error while logging in!')
-      console.log(res)
       addMessage({ content: json.error, type: 'error' })
       return json
     }
@@ -73,7 +72,6 @@ export const useUserStore = defineStore('user', () => {
     const resToken = res.headers.get('authorization')
 
     if (resToken) setToken(resToken)
-    console.log(resToken)
     await fetchAndSetUserData()
     addMessage({ content: json.message, type: 'success' })
     return json
@@ -107,14 +105,12 @@ export const useUserStore = defineStore('user', () => {
 
     if (res.status !== 200) {
       console.error('Error while signing up!')
-      console.log(res)
       addMessage({ content: json.error, type: 'error' })
       return json
     }
 
     const resToken = res.headers.get('authorization')
 
-    console.log(resToken)
     if (resToken) setToken(resToken)
     await fetchAndSetUserData()
     addMessage({ content: json.message, type: 'success' })
@@ -139,12 +135,10 @@ export const useUserStore = defineStore('user', () => {
 
     if (res.status !== 200) {
       console.error('Error while signing out!')
-      console.log(res)
       addMessage({ content: json.error, type: 'error' })
       return json
     }
 
-    console.log(json)
     addMessage({ content: json.message, type: 'success' })
     removeToken()
     return json
@@ -168,14 +162,12 @@ export const useUserStore = defineStore('user', () => {
 
     if (res.status !== 200) {
       console.error('Error while fetching user data!')
-      console.log(res)
       addMessage({ content: json.error, type: 'error' })
       return json
     }
 
     data.value = json
 
-    console.log(data.value)
     return json
   }
 

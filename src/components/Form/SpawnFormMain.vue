@@ -132,7 +132,6 @@ const updateSpawn = async () => {
   }
 
   const spawnRes = await patchSpawn(spawn)
-  console.log(spawnRes)
   updateSpawnData(spawnFormTarget.value.id, spawnRes)
 }
 </script>

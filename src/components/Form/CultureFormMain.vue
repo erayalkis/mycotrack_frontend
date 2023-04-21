@@ -136,7 +136,6 @@ const updateCulture = async () => {
   }
 
   const cultureRes = await patchCulture(culture)
-  console.log(cultureRes)
   updateCultureData(cultureFormTarget.value.id, cultureRes)
 }
 </script>

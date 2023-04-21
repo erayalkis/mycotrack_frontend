@@ -56,7 +56,6 @@ const login = async () => {
 
   isLogginIn.value = true
   const ret = await signIn(email.value, password.value)
-  console.log(ret)
   isLogginIn.value = false
   push('/')
 }

@@ -43,7 +43,6 @@ export const useSpawnStore = defineStore('spawn', () => {
 
     const json = await res.json()
 
-    console.log(json)
     spawns.value = json
     loading.value = false
     return json
