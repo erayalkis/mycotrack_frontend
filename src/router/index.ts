@@ -5,7 +5,11 @@ import HomeView from '../views/HomeView.vue'
 import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(
+    process.env.NODE_ENV === 'production'
+      ? '/mycotrack_frontend/' // note the trailing slash
+      : '/'
+  ),
   routes: [
     {
       path: '/',
