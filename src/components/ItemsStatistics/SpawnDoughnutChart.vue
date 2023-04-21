@@ -31,10 +31,13 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useStatisticsStore),
-    allDataNull() {
+    allDataNull(): boolean {
       return (
+        //@ts-ignore
         this.statisticsStore.spawnUsageStatistics.usedOnceSpawns.length === 0 &&
+        //@ts-ignore
         this.statisticsStore.spawnUsageStatistics.usedMultipleSpawns.length === 0 &&
+        //@ts-ignore
         this.statisticsStore.spawnUsageStatistics.unusedSpawns.length === 0
       )
     },
@@ -44,8 +47,11 @@ export default defineComponent({
         datasets: [
           {
             data: [
+              //@ts-ignore
               this.statisticsStore.spawnUsageStatistics.unusedSpawns.length,
+              //@ts-ignore
               this.statisticsStore.spawnUsageStatistics.usedOnceSpawns.length,
+              //@ts-ignore
               this.statisticsStore.spawnUsageStatistics.usedMultipleSpawns.length
             ],
             backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2']

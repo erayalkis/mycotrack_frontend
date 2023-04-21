@@ -31,7 +31,7 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useStatisticsStore),
-    allDataNull() {
+    allDataNull(): boolean {
       return Object.values(this.statisticsStore.blockUsageStatistics).every(
         (blocks) => blocks.length === 0
       )
@@ -42,13 +42,15 @@ export default defineComponent({
         datasets: [
           {
             data: [
+              //@ts-ignore
               this.statisticsStore.blockUsageStatistics['Inoculated'].length,
+              //@ts-ignore
               this.statisticsStore.blockUsageStatistics['Mycelium Healthy'].length,
+              //@ts-ignore
               this.statisticsStore.blockUsageStatistics['Fruiting / Harvesting'].length,
+              //@ts-ignore
               this.statisticsStore.blockUsageStatistics['Discarded'].length
             ],
-            // 53b8e9
-            // '#62bce7' <- old
             backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2', '#409DC7']
           }
         ]
