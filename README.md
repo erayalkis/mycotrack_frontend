@@ -1,46 +1,39 @@
-# mycotrack_frontend
+<p align="center" width="100%">
+    <img width="33%" src="./logo.png">
+</p>
 
-This template should help get you started developing with Vue 3 in Vite.
+<h3 align="center">MycoTrack</h3>
 
-## Recommended IDE Setup
+  <p align="center">
+    A Vue.js and Rails app for tracking mushroom samples.
+    <br />
+    <br />
+    <a href="https://github.com/erayalkis/mycotrack_frontend/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/erayalkis/mycotrack_frontend/issues">Request Feature</a>
+  </p>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# About MycoTrack:
 
-## Type Support for `.vue` Imports in TS
+`MycoTrack` is a simple to use, efficient, and developer friendly app for tracking your mushroom samples.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Features:
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Live statistics for your data.
+- Fluid and responsive UI.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+# Developers
 
-## Customize configuration
+## Installation
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+To install the latest release:
 
-## Project Setup
-
-```sh
-npm install
+```
+gem install gofile_ruby
 ```
 
-### Compile and Hot-Reload for Development
+## Usage
 
-```sh
-npm run dev
-```
+# License
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Licensed under the [MIT License](https://github.com/erayalkis/gofile_ruby/blob/main/LICENSE)
