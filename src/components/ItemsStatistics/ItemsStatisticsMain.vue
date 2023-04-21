@@ -1,8 +1,8 @@
 <template>
   <div class="p-2 text-center flex flex-col justify-center mt-2 items-center mt-10">
-    <div class="flex gap-2 items-center">
-      <h1 class="text-2xl mb-3">Statistics</h1>
-      <PieChartSvg class="w-8 h-8 text-blue-500 mb-2.5" />
+    <div class="flex gap-2 items-center mb-5">
+      <h1 class="text-2xl">Statistics</h1>
+      <PieChartSvg class="w-8 h-8 text-blue-500" />
     </div>
 
     <div class="flex gap-5 flex-wrap items-center justify-center h-full w-full">
@@ -29,5 +29,5 @@
 import PieChartSvg from '@/assets/components/svg/PieChartSvg.vue'
 import BlockDoughnutChart from './BlockDoughnutChart.vue'
 import CultureDoughnutChart from './CultureDoughnutChart.vue'
-import SpawnPieChart from './SpawnPieChart.vue'
+import SpawnPieChart from './SpawnDoughnutChart.vue'
 </script>

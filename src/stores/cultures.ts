@@ -102,6 +102,7 @@ export const useCultureStore = defineStore('culture', () => {
 
     const json = await res.json()
 
+    addMessage({ content: 'Culture successfully updated!', type: 'success' })
     return json
   }
 
@@ -115,6 +116,7 @@ export const useCultureStore = defineStore('culture', () => {
 
     const json = await res.json()
 
+    addMessage({ content: 'Culture successfully deleted!', type: 'success' })
     return json
   }
 

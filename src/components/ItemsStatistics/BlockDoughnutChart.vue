@@ -47,7 +47,9 @@ export default defineComponent({
               this.statisticsStore.blockUsageStatistics['Fruiting / Harvesting'].length,
               this.statisticsStore.blockUsageStatistics['Discarded'].length
             ],
-            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2', '#40c9f2']
+            // 53b8e9
+            // '#62bce7' <- old
+            backgroundColor: ['#77CEFF', '#44b4db', '#55c9f2', '#53bce9']
           }
         ]
       }

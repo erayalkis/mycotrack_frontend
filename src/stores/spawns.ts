@@ -100,6 +100,7 @@ export const useSpawnStore = defineStore('spawn', () => {
 
     const json = await res.json()
 
+    addMessage({ content: 'Spawn successfully updated!', type: 'success' })
     return json
   }
 
@@ -113,7 +114,7 @@ export const useSpawnStore = defineStore('spawn', () => {
 
     const json = await res.json()
 
-    console.log(json)
+    addMessage({ content: 'Spawn successfully deleted!', type: 'success' })
     return json
   }
 

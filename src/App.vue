@@ -1,6 +1,6 @@
 <template>
   <NavbarMain class="h-fit" />
-  <main class="w-full h-full mt-14">
+  <main class="w-full h-full mt-16">
     <RouterView />
   </main>
   <AlertMain />
