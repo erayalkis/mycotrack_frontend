@@ -5,7 +5,7 @@
 <h3 align="center">MycoTrack</h3>
 
   <p align="center">
-    A Vue.js and Rails app for tracking mushroom samples.
+    A Vue.js and Rails app for tracking mycelium samples.
     <br />
     <br />
     <a href="https://github.com/erayalkis/mycotrack_frontend/issues">Report Bug</a>
@@ -15,25 +15,91 @@
 
 # About MycoTrack:
 
-`MycoTrack` is a simple to use, efficient, and developer friendly app for tracking your mushroom samples.
+`MycoTrack` is a simple to use, efficient, and developer friendly app for tracking your mycelia.
 
 ## Features:
 
 - Live statistics for your data.
 - Fluid and responsive UI.
+- Easy login/signup flow.
+- Interactive notification system.
+- Single page design for maxiumum efficiency.
 
-# Developers
+MycoTrack focuses on keeping things simple, so that you can focus on your data.
 
-## Installation
+# Developers:
 
-To install the latest release:
+## Local setup
+
+Clone both the backend and the frontend:
 
 ```
-gem install gofile_ruby
+  git clone git@github.com:erayalkis/mycotrack.git
 ```
 
-## Usage
+```
+  git clone git@github.com:erayalkis/mycotrac_frontend.git
+```
+
+### Setting up the backend
+
+Navigate to the backend folder:
+
+```
+  cd mycotrack
+```
+
+Install gems using bundler:
+
+```
+  bundle install
+```
+
+Create database:
+
+```
+  rails db:create
+```
+
+Run migrations:
+
+```
+  rails db:migrate
+```
+
+In your credentials file, add a `devise_jwt_secret_key` key and set a secret as its value.
+To generate a secret, run:
+
+```
+  rails secret
+```
+
+And finally, run the server!
+
+```
+  rails server
+```
+
+### Setting up the frontend
+
+Navigate to the frontend folder:
+
+```
+  cd mycotrack_frontend
+```
+
+Install npm packages:
+
+```
+  npm install
+```
+
+Run the frontend server:
+
+```
+  npm run dev
+```
 
 # License
 
-Licensed under the [MIT License](https://github.com/erayalkis/gofile_ruby/blob/main/LICENSE)
+Licensed under the [MIT License](https://github.com/erayalkis/mycotrack_frontend/blob/main/LICENSE)
