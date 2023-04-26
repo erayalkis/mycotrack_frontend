@@ -15,6 +15,10 @@
 
 # About MycoTrack:
 
+<img src="./screenshot01.png" />
+
+<br />
+
 `MycoTrack` is a simple to use, efficient, and developer friendly app for tracking your mycelia.
 
 ## Features:
