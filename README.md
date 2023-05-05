@@ -10,6 +10,8 @@
     <br />
     <a href="https://github.com/erayalkis/mycotrack_frontend/issues">Report Bug</a>
     ·
+    <a href="https://github.com/erayalkis/mycotrack">View Backend Repo</a>
+    ·
     <a href="https://github.com/erayalkis/mycotrack_frontend/issues">Request Feature</a>
   </p>
 
